@@ -15,7 +15,7 @@ from PyPDF2 import PdfReader, PdfWriter
 data_dir = r"C:\Users\User\PycharmProjects\Hueton\hackaton\hackaton"
 
 poppler_path = r"C:\Users\User\Downloads\poppler-24.08.0\Library\bin\pdftoppm.exe"
-pytesseract.pytesseract.tesseract_cmd = r"C:\Users\User\Downloads\tesseract-ocr-w64-setup-5.5.0.20241111.exe"
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 def check_cropbox(file_path):
