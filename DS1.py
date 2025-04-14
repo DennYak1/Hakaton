@@ -6,6 +6,7 @@ from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import logging
 
+
 logging.basicConfig(level=logging.INFO)
 
 DOCUMENTS_JSON = "data.json"
