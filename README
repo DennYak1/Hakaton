@@ -1,7 +1,10 @@
 # Hakaton
+## Цель проекта:
+Разработать прототип (MVP) поисковой системы на базе LLM  для интеграции 
+его в VK HR Tek.  
+## Структура проекта:
 
-Поисковой системы на базе LLM
-
+## Развертывание проекта:
 скачать poppler: https://github.com/oschwartz10612/poppler-windows/releases/
 скачать tesseract: https://github.com/UB-Mannheim/tesseract/wiki
 ссылка на файлы: https://drive.google.com/file/d/1xbA3glwHCcU5RjDEvuqgZxWNzec2MRs9/view?usp=sharing
