@@ -9,3 +9,8 @@
 
 ## Развертывание проекта:
 
+### Требуется скачать:
+
+- [poppler](https://github.com/oschwartz10612/poppler-windows/releases/)
+- [tesseract](https://github.com/UB-Mannheim/tesseract/wiki)
+
