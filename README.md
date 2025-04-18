@@ -7,6 +7,24 @@
 
 ## Структура проекта
 
+Hakaton/
+├── WorkWithDb/
+│   ├── RestoreDb.py
+│   ├── FileDownloader.py
+│   └── DumpFiles/
+│       ├── cms.dump
+│       ├── lists.dump
+│       └── filestorage.dump
+├── Data2.py
+├── DS1.py
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+├── data/
+├── output/
+└── logs/
+
+
 ## Развертывание проекта
 
 ### Требуется скачать:
