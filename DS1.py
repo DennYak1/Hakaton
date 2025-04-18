@@ -121,6 +121,8 @@ def main():
 
     tokenizer, model = init_llm(MODEL_NAME)
 
+
+    
     print("\nДобро пожаловать!)")
     print("Пишите ваш запрос. Пустая строка - завершение.")
 

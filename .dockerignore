@@ -13,3 +13,11 @@ env
 *.docx
 *.xlsx
 *.csv
+.git/
+*.log
+data/
+output/
+logs/
+docker-compose.yml
+*.bak
+*.tmp

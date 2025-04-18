@@ -1,16 +1,35 @@
-version: '3.8'
-
 services:
+  db:
+    image: postgres:13
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./WorkWithDb/DumpFiles:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d documents"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
   main-app:
     build: .
+    command: bash -c "sleep 10 && uvicorn app.main:app --host 0.0.0.0 --port 8000"  
     ports:
       - "8000:8000"
     volumes:
       - ./data:/app/data
       - ./output:/app/output
-    environment:
-      - DATA_DIR=/app/data
-      - OUTPUT_JSON=/app/output/data.json
+      - ./logs:/app/logs
+      - ./WorkWithDb:/app/WorkWithDb
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
     deploy:
       resources:
         reservations:
@@ -22,14 +41,28 @@ services:
 
   document-processor:
     build: .
-    command: python Data2.py
+    command: >
+      bash -c "sleep 10 && 
+              ls -l /app/WorkWithDb && 
+              python3 /app/WorkWithDb/RestoreDb.py && 
+              python3 /app/WorkWithDb/FileDownloader.py && 
+              python3 /app/Data2.py || echo 'Ошибка выполнения скриптов'"
     volumes:
       - ./data:/app/data
       - ./output:/app/output
+      - ./logs:/app/logs
+      - ./WorkWithDb:/app/WorkWithDb
+    env_file:
+      - .env
     depends_on:
-      - main-app
-    restart: unless-stopped
+      db:
+        condition: service_healthy
+    restart: on-failure  # Перезапускает при ошибке
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "4g"
 
 volumes:
-  data:
-  output:
+  postgres_data:
