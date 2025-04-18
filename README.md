@@ -32,4 +32,14 @@ Hakaton/
 - [Docker](https://www.docker.com/)
 - [Docker Compose standalone](https://docs.docker.com/compose/install/standalone/)
 
+### Этапы запуска
+
+1.  **Клонирование репозитория**
+
+2. **Выполнение команд**
+ ```bash
+    docker-compose down
+    docker-compose up -d --build
+ ```
+
 
