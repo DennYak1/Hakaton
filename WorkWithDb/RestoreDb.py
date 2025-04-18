@@ -3,7 +3,6 @@
 Утилита восстановления PostgreSQL баз данных из дампов
 Автоматизирует процесс восстановления данных в Docker-окружении
 """
-
 import os
 import subprocess
 from pathlib import Path
@@ -11,13 +10,46 @@ from typing import List, Optional
 import logging
 from dataclasses import dataclass
 
-# Настройка логирования
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]
-)
 logger = logging.getLogger(__name__)
+
+class DatabaseRestorer:
+    def __init__(self):
+        self.config = {
+            'db_user': os.getenv('POSTGRES_USER', 'admin'),
+            'db_password': os.getenv('POSTGRES_PASSWORD', 'secret'),
+            'db_host': os.getenv('PG_HOST', 'db'),
+            'db_port': '5432',
+            'db_name': os.getenv('POSTGRES_DB', 'documents')
+        }
+
+    def _construct_connection_string(self):
+        return f"postgresql://{self.config['db_user']}:{self.config['db_password']}@{self.config['db_host']}:{self.config['db_port']}/{self.config['db_name']}"
+
+    def restore(self, dump_path: Path):
+        logger.info(f"Начало восстановления дампа: {dump_path}")
+        command = [
+            "pg_restore",
+            "--dbname", self._construct_connection_string(),
+            "--no-owner",
+            "--no-privileges",
+            "--verbose",
+            str(dump_path)
+        ]
+        try:
+            result = subprocess.run(
+                command,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            logger.info(f"Успешно восстановлен дамп: {dump_path}")
+            logger.debug(f"Вывод pg_restore: {result.stdout}")
+            if result.stderr:
+                logger.warning(f"Предупреждения pg_restore: {result.stderr}")
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Ошибка восстановления {dump_path}: {e.stderr}")
+            raise
+
 
 @dataclass
 class DatabaseConfig:
@@ -69,50 +101,63 @@ class DatabaseRestorer:
             logger.error(f"Файл дампа не найден: {dump_path}")
             return False
 
+        # Проверка валидности дампа
+        try:
+            result = subprocess.run(
+                ["pg_restore", "--list", str(dump_path)],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            logger.debug(f"Содержимое дампа {dump_path.name}: {result.stdout}")
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Невалидный файл дампа {dump_path.name}: {e.stderr}")
+            return False
+
         # Формируем команду восстановления
         command = [
             "pg_restore",
-            "--create",          # Создать БД перед восстановлением
+            "--create",
             "--dbname", self._construct_connection_string(),
-            "--no-owner",       # Не устанавливать владельца объектов
-            "--format", "c",    # Формат custom
-            "--no-privileges",  # Не восстанавливать привилегии
-            str(dump_path)      # Путь к файлу дампа
+            "--no-owner",
+            "--format", "c",
+            "--no-privileges",
+            "--verbose",
+            str(dump_path)
         ]
 
         logger.info(f"Начато восстановление из {dump_path.name}")
         logger.debug(f"Команда: {' '.join(self._mask_sensitive_data(command))}")
 
         try:
-            # Передаем пароль через переменную окружения для безопасности
             env = os.environ.copy()
             env['PGPASSWORD'] = self.config.password
             
-            # Выполняем команду восстановления
             result = subprocess.run(
                 command,
                 env=env,
                 capture_output=True,
                 text=True,
                 check=True,
-                timeout=3600  # 1 час
+                timeout=3600
             )
             
-     
-            # Логируем вывод (если есть)
             if result.stdout:
-                logger.debug(f"Вывод: {result.stdout}")
+                logger.debug(f"Вывод pg_restore: {result.stdout}")
             if result.stderr:
-                logger.debug(f"Ошибки: {result.stderr}")
+                logger.debug(f"Ошибки pg_restore: {result.stderr}")
                 
             logger.info(f"Успешно восстановлено из {dump_path.name}")
             return True
             
         except subprocess.CalledProcessError as e:
-            logger.error(f"Ошибка восстановления из {dump_path.name}")
+            logger.error(f"Ошибка восстановления из {dump_path.name}: {e.stderr}")
             logger.debug(f"Код возврата: {e.returncode}")
             logger.debug(f"Вывод: {e.stdout}")
-            logger.debug(f"Ошибки: {e.stderr}")
+            return False
+        except Exception as e:
+            logger.error(f"Неожиданная ошибка при восстановлении {dump_path.name}: {str(e)}")
             return False
 
     def _mask_sensitive_data(self, command: List[str]) -> List[str]:
@@ -184,8 +229,6 @@ def execute_restoration_sequence(dumps: List[Path], restorer: DatabaseRestorer) 
 
 
 def main() -> int:
-
-
     """Точка входа скрипта"""
     try:
         # Определяем корневую директорию проекта
@@ -199,7 +242,7 @@ def main() -> int:
         
         # Находим файлы дампов
         dump_files = locate_dump_files(
-            project_root /"WorkingWithDb"/ "DumpFiles",
+            project_root / "DumpFiles", 
             ["cms.dump", "lists.dump", "filestorage.dump"]
         )
       
@@ -212,8 +255,6 @@ def main() -> int:
     except Exception as e:
         logger.error(f"Критическая ошибка: {str(e)}")
         return 1
-    
-
 
 if __name__ == "__main__":
     exit(main())

@@ -1,6 +1,7 @@
+
 services:
   db:
-    image: postgres:13
+    image: postgres:17  
     env_file:
       - .env
     volumes:
@@ -17,7 +18,7 @@ services:
 
   main-app:
     build: .
-    command: bash -c "sleep 10 && uvicorn app.main:app --host 0.0.0.0 --port 8000"  
+    command: bash -c "sleep 30 && uvicorn app.main:app --host 0.0.0.0 --port 8000"
     ports:
       - "8000:8000"
     volumes:
@@ -43,10 +44,11 @@ services:
     build: .
     command: >
       bash -c "sleep 10 && 
-              ls -l /app/WorkWithDb && 
-              python3 /app/WorkWithDb/RestoreDb.py && 
-              python3 /app/WorkWithDb/FileDownloader.py && 
-              python3 /app/Data2.py || echo 'Ошибка выполнения скриптов'"
+               ls -l /app/WorkWithDb && 
+               ls -l /app/WorkWithDb/DumpFiles && 
+               python3 /app/WorkWithDb/RestoreDb.py && 
+               python3 /app/WorkWithDb/FileDownloader.py && 
+               python3 /app/Data2.py || echo 'Ошибка выполнения скриптов'; sleep infinity"
     volumes:
       - ./data:/app/data
       - ./output:/app/output
@@ -57,7 +59,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    restart: on-failure  # Перезапускает при ошибке
+    restart: unless-stopped
     deploy:
       resources:
         limits:

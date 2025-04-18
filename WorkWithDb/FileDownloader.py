@@ -16,51 +16,77 @@ import logging
 from urllib.parse import urljoin
 
 
-# Настройка логирования
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]
-)
+
 logger = logging.getLogger(__name__)
 
 class FileDownloader:
-    """Класс для загрузки файлов из базы данных"""
-    
-    def __init__(self, config: dict):
-        """
-        Инициализация загрузчика
-        
-        :param config: Конфигурация подключения к БД и параметров загрузки
-        """
-        self.config = config
-        self.download_dir = Path(config.get('download_dir', 'data/downloaded_files'))
-        self.log_dir = Path(config.get('log_dir', 'logs'))
-        self.max_workers = int(config.get('max_workers', 10))
-        self.allowed_extensions = (
-            '.pdf', '.doc', '.docx', '.xls', '.xlsx', 
-            '.txt', '.csv', '.json'
-        )
-        
-        # Создаем необходимые директории
+    def __init__(self):
+        self.config = {
+            'db_name': os.getenv('POSTGRES_DB', 'documents'),
+            'db_user': os.getenv('POSTGRES_USER', 'admin'),
+            'db_password': os.getenv('POSTGRES_PASSWORD', 'secret'),
+            'db_host': os.getenv('PG_HOST', 'db'),
+            'db_port': '5432',
+            'download_dir': '/app/data/downloaded_files',
+            'base_download_url': os.getenv('BASE_DOWNLOAD_URL', 'https://hackaton.hb.ru-msk.vkcloud-storage.ru/media')
+        }
+        self.download_dir = Path(self.config['download_dir'])
         self.download_dir.mkdir(parents=True, exist_ok=True)
-        self.log_dir.mkdir(parents=True, exist_ok=True)
 
-    def get_db_connection(self) -> Optional[psycopg2.extensions.connection]:
-        """Установка соединения с PostgreSQL"""
+    def db_connection(self):
+        return psycopg2.connect(
+            dbname=self.config['db_name'],
+            user=self.config['db_user'],
+            password=self.config['db_password'],
+            host=self.config['db_host'],
+            port=self.config['db_port']
+        )
+
+    def download_file(self, file_url, file_name):
+        file_path = self.download_dir / file_name
+        # Если file_url не начинается с http, добавляем BASE_DOWNLOAD_URL
+        if not file_url.startswith(('http://', 'https://')):
+            file_url = f"{self.config['base_download_url']}/{file_url}"
+        logger.debug(f"Попытка загрузки файла: {file_name}, URL: {file_url}, путь: {file_path}")
+        if file_path.exists():
+            logger.info(f"Файл уже существует: {file_path}")
+            return file_path
+        if not file_url:
+            logger.error(f"URL отсутствует для файла: {file_name}")
+            raise FileNotFoundError(f"URL отсутствует для файла: {file_name}")
         try:
-            conn = psycopg2.connect(
-                dbname=self.config['db_name'],
-                user=self.config['pg_user'],
-                password=self.config['pg_password'],
-                host=self.config['pg_host'],
-                port=self.config['pg_port']
-            )
-            logger.info(f"Успешное подключение к БД '{self.config['db_name']}'")
-            return conn
-        except psycopg2.Error as e:
-            logger.error(f"Ошибка подключения к БД: {e}")
-            return None
+            response = requests.get(file_url, stream=True)
+            response.raise_for_status()
+            with open(file_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+            logger.info(f"Успешно загружен файл: {file_path}")
+            return file_path
+        except Exception as e:
+            logger.error(f"Ошибка загрузки {file_name}: {str(e)}")
+            raise
+
+    def download_files(self):
+        with self.db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'storage_storageobject')")
+            table_exists = cursor.fetchone()[0]
+            if not table_exists:
+                logger.error("Таблица storage_storageobject не найдена в базе данных")
+                return
+            cursor.execute("SELECT id, file_name, file_url FROM storage_storageobject")
+            logger.debug("Выполнен SQL-запрос: SELECT id, file_name, file_url FROM storage_storageobject")
+            files = cursor.fetchall()
+            logger.info(f"Найдено {len(files)} файлов для загрузки")
+            for file_id, file_name, file_url in files:
+                if len(file_name) > 255:
+                    logger.warning(f"Пропущен файл с длинным именем: {file_name}")
+                    continue
+                try:
+                    logger.debug(f"Обработка файла: id={file_id}, name={file_name}, url={file_url}")
+                    self.download_file(file_url, file_name)
+                except Exception as e:
+                    logger.error(f"Критическая ошибка: {file_name} - {str(e)}")
 
     def get_file_list(self, conn: psycopg2.extensions.connection) -> List[Dict[str, str]]:
         """Получение списка файлов для загрузки"""
@@ -90,50 +116,6 @@ class FileDownloader:
             conn.rollback()
         
         return files
-
-    def download_file(self, file_info: Dict[str, str]) -> Dict[str, Any]:
-        """Загрузка одного файла"""
-        file_name = file_info['name']
-        file_link = file_info['link']
-        full_url = urljoin(self.config['base_url'], file_link)
-        local_path = self.download_dir / file_name
-        
-        result = {
-            'name': file_name,
-            'success': False,
-            'path': str(local_path),
-            'error': ''
-        }
-
-        if local_path.exists() and local_path.stat().st_size > 0:
-            result['success'] = True
-            result['message'] = 'Файл уже существует'
-        else:
-            # Проверка после загрузки
-            if local_path.stat().st_size == 0:
-                result['error'] = 'Загружен пустой файл'
-                local_path.unlink()  # Удаляем пустой файл
-                
-        try:
-            response = requests.get(full_url, stream=True, timeout=60)
-            response.raise_for_status()
-
-            local_path.parent.mkdir(parents=True, exist_ok=True)
-
-            with open(local_path, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-
-            result['success'] = True
-            result['message'] = 'Успешно загружен'
-            return result
-
-        except requests.exceptions.RequestException as e:
-            result['error'] = f"Ошибка загрузки: {str(e)}"
-            return result
-        except Exception as e:
-            result['error'] = f"Неизвестная ошибка: {str(e)}"
-            return result
 
     def process_files(self) -> Dict[str, Any]:
         """Основной процесс загрузки файлов"""
