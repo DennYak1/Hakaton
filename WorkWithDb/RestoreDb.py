@@ -122,6 +122,9 @@ class DatabaseRestorer:
             if part.startswith("postgresql://"):
                 masked[i] = self._construct_connection_string(mask_password=True)
         return masked
+    
+    
+    
 
 def load_configuration(env_path: Optional[Path] = None) -> DatabaseConfig:
     """Загрузка конфигурации из переменных окружения"""
