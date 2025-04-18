@@ -9,6 +9,8 @@
 
 ```text
 Hakaton/
+├── app/
+│   └── main.py
 ├── WorkWithDb/
 │   ├── RestoreDb.py
 │   ├── FileDownloader.py
@@ -21,6 +23,8 @@ Hakaton/
 ├── docker-compose.yml
 ├── Dockerfile
 ├── requirements.txt
+├── .env
+├── .dockerignore
 ├── data/
 ├── output/
 └── logs/
