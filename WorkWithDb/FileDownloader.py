@@ -44,7 +44,7 @@ class FileDownloader:
 
     def download_file(self, file_url, file_name):
         file_path = self.download_dir / file_name
-        # Если file_url не начинается с http, добавляем BASE_DOWNLOAD_URL
+        
         if not file_url.startswith(('http://', 'https://')):
             file_url = f"{self.config['base_download_url']}/{file_url}"
         logger.debug(f"Попытка загрузки файла: {file_name}, URL: {file_url}, путь: {file_path}")
