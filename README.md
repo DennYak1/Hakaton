@@ -30,5 +30,6 @@ Hakaton/
 ### Требуется скачать:
 
 - [Docker](https://www.docker.com/)
+- [Docker Compose standalone](https://docs.docker.com/compose/install/standalone/)
 
 
