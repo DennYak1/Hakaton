@@ -7,6 +7,7 @@
 
 ## Структура проекта
 
+```text
 Hakaton/
 ├── WorkWithDb/
 │   ├── RestoreDb.py
@@ -23,7 +24,7 @@ Hakaton/
 ├── data/
 ├── output/
 └── logs/
-
+```
 ## Развертывание проекта
 
 ### Требуется скачать:
