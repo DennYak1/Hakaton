@@ -50,6 +50,13 @@ class DatabaseRestorer:
                 "Утилиты PostgreSQL не найдены. Убедитесь, что postgresql-client установлен "
                 "в Docker-образе (apt-get install postgresql-client)"
             )
+            
+        try:   
+            subprocess.run(["psql", "--version"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            raise RuntimeError(
+                "psql не найден"
+            )
 
     def _construct_connection_string(self, mask_password: bool = False) -> str:
         """Формирование строки подключения с маскировкой пароля при необходимости"""
@@ -87,9 +94,11 @@ class DatabaseRestorer:
                 env=env,
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
+                timeout=3600  # 1 час
             )
             
+     
             # Логируем вывод (если есть)
             if result.stdout:
                 logger.debug(f"Вывод: {result.stdout}")
@@ -190,7 +199,7 @@ def main() -> int:
             project_root /"WorkingWithDb"/ "DumpFiles",
             ["cms.dump", "lists.dump", "filestorage.dump"]
         )
-        
+      
         # Выполняем восстановление
         if execute_restoration_sequence(dump_files, restorer):
             logger.info("Все базы данных успешно восстановлены")

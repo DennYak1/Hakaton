@@ -1,4 +1,7 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
+
+# Установка переменной для избежания интерактивных запросов
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Установка системных зависимостей
 RUN apt-get update && \
@@ -24,7 +27,7 @@ RUN apt-get update && \
         libfontconfig1 \
         libjpeg-turbo8 \
         libpng16-16 \
-        libssl3 \
+        libssl1.1 \
         libx11-6 \
         libxcb1 \
         libxext6 \
@@ -33,10 +36,9 @@ RUN apt-get update && \
         xfonts-base && \
     rm -rf /var/lib/apt/lists/*
 
-# Скачивание WKHTMLTOPDF 
+# Скачивание и установка WKHTMLTOPDF
 RUN wget -q https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends ./wkhtmltox_0.12.6-1.focal_amd64.deb && \
+    dpkg -i wkhtmltox_0.12.6-1.focal_amd64.deb || apt-get install -f -y && \
     rm -f wkhtmltox_0.12.6-1.focal_amd64.deb
 
 # Рабочая директория
@@ -44,19 +46,14 @@ WORKDIR /app
 
 # Установка Python-зависимостей
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-
-COPY requirements.txt .
+# Копирование файлов проекта
 COPY Data2.py .
 COPY DS1.py .
 COPY WorkWithDb/ ./WorkWithDb/
 
-
-COPY WorkWithDb/DumpFiles/ ./WorkWithDb/DumpFiles/
-
-
-# Создаем папки для данных 
+# Создаем папки для данных
 RUN mkdir -p /app/data /app/output /app/logs
 
 # Настройка окружения
@@ -65,5 +62,5 @@ ENV POPPLER_PATH=/usr/bin
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/app
 
-
-
+# Команда по умолчанию (может быть переопределена в docker-compose.yml)
+CMD ["bash"]

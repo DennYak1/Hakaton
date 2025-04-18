@@ -13,6 +13,8 @@ import requests
 import psycopg2
 from datetime import datetime
 import logging
+from urllib.parse import urljoin
+
 
 # Настройка логирования
 logging.basicConfig(
@@ -93,7 +95,7 @@ class FileDownloader:
         """Загрузка одного файла"""
         file_name = file_info['name']
         file_link = file_info['link']
-        full_url = f"{self.config['base_url']}/{file_link.lstrip('/')}"
+        full_url = urljoin(self.config['base_url'], file_link)
         local_path = self.download_dir / file_name
         
         result = {
@@ -103,12 +105,15 @@ class FileDownloader:
             'error': ''
         }
 
-        # Проверка существующего файла
         if local_path.exists() and local_path.stat().st_size > 0:
             result['success'] = True
             result['message'] = 'Файл уже существует'
-            return result
-
+        else:
+            # Проверка после загрузки
+            if local_path.stat().st_size == 0:
+                result['error'] = 'Загружен пустой файл'
+                local_path.unlink()  # Удаляем пустой файл
+                
         try:
             response = requests.get(full_url, stream=True, timeout=60)
             response.raise_for_status()
