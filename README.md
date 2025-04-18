@@ -14,10 +14,9 @@ Hakaton/
 ├── WorkWithDb/
 │   ├── RestoreDb.py
 │   ├── FileDownloader.py
-│   └── DumpFiles/
-│       ├── cms.dump
-│       ├── lists.dump
-│       └── filestorage.dump
+|   ├── lists.dump
+|   ├── filestorage.dump
+│   └── cms.dump
 ├── Data2.py
 ├── DS1.py
 ├── docker-compose.yml
