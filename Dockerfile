@@ -33,7 +33,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Копируем исходный код
-COPY DS1.py Data2.py "Model1 для отладки.py" data.json ./
+COPY DS1.py Data2.py data.json ./
 
 # Настройка окружения
 ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata
