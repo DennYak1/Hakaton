@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  main-app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    environment:
+      - DATA_DIR=/app/data
+      - OUTPUT_JSON=/app/output/data.json
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  document-processor:
+    build: .
+    command: python Data2.py
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    depends_on:
+      - main-app
+    restart: unless-stopped
+
+volumes:
+  data:
+  output:
