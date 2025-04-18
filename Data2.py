@@ -4,6 +4,7 @@ import json
 import warnings
 import traceback
 import logging
+import shutil
 
 logging.basicConfig(level=logging.INFO)
 
@@ -16,8 +17,8 @@ from pdfminer.high_level import extract_text as pdfminer_extract
 from pdf2image import convert_from_path
 
 
-POPPLER_PATH = r"C:\Users\User\Downloads\poppler-24.08.0\Library\bin"
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+POPPLER_PATH = os.environ.get("POPPLER_PATH")  # будет "/usr/bin" в Docker
+TESSERACT_CMD = os.environ.get("TESSERACT_CMD", shutil.which("tesseract"))
 
 DATA_DIR = r"C:\Users\User\PycharmProjects\Hakaton\hackaton"
 OUTPUT_JSON = "data.json"
