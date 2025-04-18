@@ -17,11 +17,12 @@ from pdfminer.high_level import extract_text as pdfminer_extract
 from pdf2image import convert_from_path
 
 
-POPPLER_PATH = os.environ.get("POPPLER_PATH")  # будет "/usr/bin" в Docker
-TESSERACT_CMD = os.environ.get("TESSERACT_CMD", shutil.which("tesseract"))
+DATA_DIR = os.getenv('DATA_DIR', os.path.join(os.path.dirname(__file__), 'data', 'downloaded_files'))
+OUTPUT_JSON = os.getenv('OUTPUT_JSON', 'data.json')
+POPPLER_PATH = os.environ.get("POPPLER_PATH")
 
-DATA_DIR = r"C:\Users\User\PycharmProjects\Hakaton\hackaton"
-OUTPUT_JSON = "data.json"
+pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_CMD', '/usr/bin/tesseract')
+
 
 
 def fix_cropbox(file_path):

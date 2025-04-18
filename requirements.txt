@@ -20,3 +20,5 @@ tqdm==4.65.0
 loguru==0.7.0
 flask==2.2.0
 gunicorn==20.1.0
+psycopg2-binary==2.9.6
+requests==2.31.0

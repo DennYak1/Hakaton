@@ -1,6 +1,24 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: documents
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./WorkWithDb/DumpFiles:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d documents"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
   main-app:
     build: .
     ports:
@@ -8,9 +26,21 @@ services:
     volumes:
       - ./data:/app/data
       - ./output:/app/output
+      - ./logs:/app/logs
+      - ./WorkWithDb:/app/WorkWithDb
     environment:
-      - DATA_DIR=/app/data
+      - DATA_DIR=/app/data/downloaded_files
       - OUTPUT_JSON=/app/output/data.json
+      - PG_HOST=db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+      - BASE_DOWNLOAD_URL=https://hackaton.hb.ru-msk.vkcloud-storage.ru/media
+      - DOWNLOAD_WORKERS=5
+      - TESSERACT_CMD=/usr/bin/tesseract
+      - POPPLER_PATH=/usr/bin
+    depends_on:
+      db:
+        condition: service_healthy
     deploy:
       resources:
         reservations:
@@ -22,14 +52,27 @@ services:
 
   document-processor:
     build: .
-    command: python Data2.py
+    command: >
+      sh -c "python WorkWithDb/RestoreDb.py && 
+             python WorkWithDb/FileDownloader.py && 
+             python Data2.py"
     volumes:
       - ./data:/app/data
       - ./output:/app/output
+      - ./logs:/app/logs
+      - ./WorkWithDb:/app/WorkWithDb
+    environment:
+      - DATA_DIR=/app/data/downloaded_files
+      - OUTPUT_JSON=/app/output/data.json
+      - PG_HOST=db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+      - BASE_DOWNLOAD_URL=https://hackaton.hb.ru-msk.vkcloud-storage.ru/media
+      - DOWNLOAD_WORKERS=5
     depends_on:
-      - main-app
-    restart: unless-stopped
+      db:
+        condition: service_healthy
+    restart: on-failure
 
 volumes:
-  data:
-  output:
+  postgres_data:
