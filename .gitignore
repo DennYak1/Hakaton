@@ -1,7 +1,14 @@
-data/downloaded_files/*
+# Игнорируем всё в data, кроме .gitkeep и downloaded_files
+data/*
+!data/.gitkeep
+!data/downloaded_files/
 !data/downloaded_files/.gitkeep
+
+# Игнорируем всё в logs, кроме .gitkeep
+logs/*
+!logs/.gitkeep
+
+# Лог-файлы
 restore_cms.log
 restore_filestorage.log
 restore_lists.log
-logs/*
-!logs/.gitkeep
