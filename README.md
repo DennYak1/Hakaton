@@ -15,16 +15,19 @@ Hakaton/
 │   ├── lists.dump
 │   ├── filestorage.dump
 │   └── cms.dump
-├── Data2.py (обработка документов)
-├── DS1.py (модель для работы с текстами)
-├── docker-compose.yml
-├── Dockerfile
+├── data/                  
+│   └── downloaded_files   # Скачанные файлы
+├── logs/                  # Логи
+├── output/ 
+│   └── data.json          # Обработанные данные
+├── Data2.py               # Обработка данных
 ├── requirements.txt
-├── .env
-├── .dockerignore
-├── data/ (загруженные файлы)
-├── output/ (результаты обработки)
-└── logs/
+├── .env                   # Файл с переменными окружения
+├── .gitignore             # Файл для исключения файлов из Git
+├── .dockerignore          # Файл для исключения файлов из Docker
+├── docker-compose.yml     # Конфигурация Docker
+├── Dockerfile             # Конфигурация Docker образа
+└── 
 ```
 ## Развертывание проекта
 
