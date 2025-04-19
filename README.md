@@ -41,7 +41,9 @@ Hakaton/
 
 2. **Выполнение команд**
  ```bash
-    docker-compose up -d --build
+    docker-compose build
+    docker-compose up
+
  ```
 
 
