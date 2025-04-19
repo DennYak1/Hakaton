@@ -1,4 +1,4 @@
-
+.env
 data/*
 !data/.gitkeep
 data/downloaded_files/*
