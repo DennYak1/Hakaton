@@ -22,12 +22,14 @@ services:
 
   document-processor:
     build: .
+    runtime: nvidia
     environment:
+      - NVIDIA_VISIBLE_DEVICES=all
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=secret
       - POSTGRES_DB=documents
       - PG_HOST=db
-      - PG_MAX_MEMORY=4GB
+      - PG_MAX_MEMORY=8GB
       - OCR_TIMEOUT=600
       - BASE_DOWNLOAD_URL=https://hackaton.hb.ru-msk.vkcloud-storage.ru/media
       - DOWNLOAD_MAX_RETRIES=3
@@ -35,6 +37,7 @@ services:
       - TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata
       - TESSERACT_CMD=/usr/bin/tesseract
       - POPPLER_PATH=/usr/bin
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}  # Из .env файла
     volumes:
       - ./data:/app/data
       - ./output:/app/output
@@ -45,7 +48,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 4G
+          memory: 8G
     command: >
       /bin/sh -c "
         echo 'Ожидание готовности БД...';
@@ -60,4 +63,8 @@ services:
 
 volumes:
   pgdata:
+
+
+
+    
 
