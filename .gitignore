@@ -1,2 +1,7 @@
 data/downloaded_files/*
 !data/downloaded_files/.gitkeep
+restore_cms.log
+restore_filestorage.log
+restore_lists.log
+logs/*
+!logs/.gitkeep
