@@ -14,10 +14,9 @@ Hakaton/
 ├── WorkWithDb/
 │   ├── RestoreDb.py
 │   ├── FileDownloader.py
-│   └── DumpFiles/
-│       ├── cms.dump
-│       ├── lists.dump
-│       └── filestorage.dump
+|   ├── lists.dump
+|   ├── filestorage.dump
+│   └── cms.dump
 ├── Data2.py
 ├── DS1.py
 ├── docker-compose.yml
@@ -42,8 +41,9 @@ Hakaton/
 
 2. **Выполнение команд**
  ```bash
-    docker-compose down
-    docker-compose up -d --build
+    docker-compose build
+    docker-compose up
+
  ```
 
 
