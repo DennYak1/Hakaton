@@ -24,7 +24,7 @@ MODEL_NAME = "deepseek-ai/deepseek-coder-7b-instruct-v1.5"
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-
+ 
 class StopOnTokens(StoppingCriteria):
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs) -> bool:
         stop_ids = [0]
