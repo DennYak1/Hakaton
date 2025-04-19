@@ -9,23 +9,21 @@
 
 ```text
 Hakaton/
-├── app/
-│   └── main.py
 ├── WorkWithDb/
 │   ├── RestoreDb.py
 │   ├── FileDownloader.py
-|   ├── lists.dump
-|   ├── filestorage.dump
+│   ├── lists.dump
+│   ├── filestorage.dump
 │   └── cms.dump
-├── Data2.py
-├── DS1.py
+├── Data2.py (обработка документов)
+├── DS1.py (модель для работы с текстами)
 ├── docker-compose.yml
 ├── Dockerfile
 ├── requirements.txt
 ├── .env
 ├── .dockerignore
-├── data/
-├── output/
+├── data/ (загруженные файлы)
+├── output/ (результаты обработки)
 └── logs/
 ```
 ## Развертывание проекта
