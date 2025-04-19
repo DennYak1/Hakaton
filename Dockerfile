@@ -58,7 +58,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY Data2.py .
 COPY DS2plusTG.py .
 COPY WorkWithDb/ ./WorkWithDb/
-COPY app/ ./app/
+
 
 # Create directories
 RUN mkdir -p /app/data /app/output /app/logs
