@@ -35,6 +35,8 @@ Hakaton/
 ### Требуется скачать:
 
 - [Docker](https://www.docker.com/)
+- [Docker Compose](https://wiki.crowncloud.net/?How_to_Install_and_use_Docker_Compose_on_Ubuntu_24_04)
+  Docker Compose должен быть не ниже v2.23.0.
 
 
 ### Этапы запуска
