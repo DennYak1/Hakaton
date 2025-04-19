@@ -10,24 +10,25 @@
 ```text
 Hakaton/
 ├── WorkWithDb/
-│   ├── RestoreDb.py
-│   ├── FileDownloader.py
-│   ├── lists.dump
-│   ├── filestorage.dump
-│   └── cms.dump
+│   ├── RestoreDb.py       # Восстановление БД
+│   ├── FileDownloader.py  # Скачивание файлов 
+│   ├── lists.dump         # Исходные данные
+│   ├── filestorage.dump   # Исходные данные
+│   └── cms.dump           # Исходные данные
 ├── data/                  
 │   └── downloaded_files   # Скачанные файлы
 ├── logs/                  # Логи
 ├── output/ 
 │   └── data.json          # Обработанные данные
-├── Data2.py               # Обработка данных
-├── requirements.txt
+├── .dockerignore          # Файл для исключения файлов из Docker
 ├── .env                   # Файл с переменными окружения
 ├── .gitignore             # Файл для исключения файлов из Git
-├── .dockerignore          # Файл для исключения файлов из Docker
-├── docker-compose.yml     # Конфигурация Docker
+├──  DS2plusTG             # Модель + тг-бот
+├── Data2.py               # Обработка данных
 ├── Dockerfile             # Конфигурация Docker образа
-└── 
+├── README.md              # Описание проекта
+├── docker-compose.yml     # Конфигурация Docker
+└── requirements.txt       #  
 ```
 ## Развертывание проекта
 
