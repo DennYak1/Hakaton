@@ -28,7 +28,7 @@ Hakaton/
 ├── Dockerfile             # Конфигурация Docker образа
 ├── README.md              # Описание проекта
 ├── docker-compose.yml     # Конфигурация Docker
-└── requirements.txt       #  
+└── requirements.txt       # Файл со списком зависимостей
 ```
 ## Развертывание проекта
 
