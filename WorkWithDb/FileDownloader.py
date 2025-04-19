@@ -1,251 +1,417 @@
 #!/usr/bin/env python3
-"""
-Модуль загрузки файлов из базы данных
-Интегрирован с основным проектом обработки документов
-"""
-
 import os
 import sys
+import re  # Добавлен недостающий импорт
 from pathlib import Path
 import concurrent.futures
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Optional
 import requests
 import psycopg2
-from datetime import datetime
 import logging
-from urllib.parse import urljoin
+import time
+import hashlib
 
-
-
+# Настройка логирования
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('/app/logs/file_downloader.log'),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 
 class FileDownloader:
     def __init__(self):
-        self.config = {
-            'db_name': os.getenv('POSTGRES_DB', 'documents'),
-            'db_user': os.getenv('POSTGRES_USER', 'admin'),
-            'db_password': os.getenv('POSTGRES_PASSWORD', 'secret'),
-            'db_host': os.getenv('PG_HOST', 'db'),
-            'db_port': '5432',
-            'download_dir': '/app/data/downloaded_files',
-            'base_download_url': os.getenv('BASE_DOWNLOAD_URL', 'https://hackaton.hb.ru-msk.vkcloud-storage.ru/media')
-        }
-        self.download_dir = Path(self.config['download_dir'])
+        self.base_url = os.getenv('BASE_DOWNLOAD_URL', 'https://hackaton.hb.ru-msk.vkcloud-storage.ru/media')
+        self.download_dir = Path('/app/data/downloaded_files')
+        self.max_workers = 5
+        self.db_retries = 3
+        self.db_wait = 2
+        self.download_retries = 3
+        self.download_timeout = int(os.getenv('DOWNLOAD_TIMEOUT', '30'))
+        self.max_filename_length = 100
+        
+        # Создаем директории если их нет
         self.download_dir.mkdir(parents=True, exist_ok=True)
+        Path('/app/logs').mkdir(parents=True, exist_ok=True)
 
-    def db_connection(self):
-        return psycopg2.connect(
-            dbname=self.config['db_name'],
-            user=self.config['db_user'],
-            password=self.config['db_password'],
-            host=self.config['db_host'],
-            port=self.config['db_port']
-        )
-
-    def download_file(self, file_url, file_name):
-        file_path = self.download_dir / file_name
+    def sanitize_filename(self, filename: str) -> str:
+        """Очищает имя файла и обрезает его до допустимой длины"""
+        # Удаляем недопустимые символы
+        filename = re.sub(r'[\\/*?:"<>|]', "_", filename)
         
-        if not file_url.startswith(('http://', 'https://')):
-            file_url = f"{self.config['base_download_url']}/{file_url}"
-        logger.debug(f"Попытка загрузки файла: {file_name}, URL: {file_url}, путь: {file_path}")
-        if file_path.exists():
-            logger.info(f"Файл уже существует: {file_path}")
-            return file_path
-        if not file_url:
-            logger.error(f"URL отсутствует для файла: {file_name}")
-            raise FileNotFoundError(f"URL отсутствует для файла: {file_name}")
-        try:
-            response = requests.get(file_url, stream=True)
-            response.raise_for_status()
-            with open(file_path, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-            logger.info(f"Успешно загружен файл: {file_path}")
-            return file_path
-        except Exception as e:
-            logger.error(f"Ошибка загрузки {file_name}: {str(e)}")
-            raise
+        # Если имя слишком длинное, используем хеш
+        if len(filename.encode('utf-8')) > self.max_filename_length:
+            ext = Path(filename).suffix
+            name_hash = hashlib.md5(filename.encode()).hexdigest()
+            return f"{name_hash}{ext}"
+        return filename
 
-    def download_files(self):
-        with self.db_connection() as conn:
-            cursor = conn.cursor()
-            cursor.execute("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'storage_storageobject')")
-            table_exists = cursor.fetchone()[0]
-            if not table_exists:
-                logger.error("Таблица storage_storageobject не найдена в базе данных")
-                return
-            cursor.execute("SELECT id, file_name, file_url FROM storage_storageobject")
-            logger.debug("Выполнен SQL-запрос: SELECT id, file_name, file_url FROM storage_storageobject")
-            files = cursor.fetchall()
-            logger.info(f"Найдено {len(files)} файлов для загрузки")
-            for file_id, file_name, file_url in files:
-                if len(file_name) > 255:
-                    logger.warning(f"Пропущен файл с длинным именем: {file_name}")
-                    continue
-                try:
-                    logger.debug(f"Обработка файла: id={file_id}, name={file_name}, url={file_url}")
-                    self.download_file(file_url, file_name)
-                except Exception as e:
-                    logger.error(f"Критическая ошибка: {file_name} - {str(e)}")
+    def get_db_connection(self) -> Optional[psycopg2.extensions.connection]:
+        """Устанавливает соединение с БД с повторными попытками"""
+        for attempt in range(self.db_retries):
+            try:
+                conn = psycopg2.connect(
+                    dbname=os.getenv('POSTGRES_DB', 'documents'),
+                    user=os.getenv('POSTGRES_USER', 'admin'),
+                    password=os.getenv('POSTGRES_PASSWORD', 'secret'),
+                    host=os.getenv('PG_HOST', 'db'),
+                    port=os.getenv('POSTGRES_PORT', '5432')
+                )
+                logger.info("Успешное подключение к базе данных")
+                return conn
+            except psycopg2.OperationalError as e:
+                if attempt == self.db_retries - 1:
+                    logger.error(f"Не удалось подключиться к БД после {self.db_retries} попыток: {e}")
+                    return None
+                logger.warning(f"Попытка {attempt + 1}: Ошибка подключения к БД, повтор через {self.db_wait} сек...")
+                time.sleep(self.db_wait)
 
-    def get_file_list(self, conn: psycopg2.extensions.connection) -> List[Dict[str, str]]:
-        """Получение списка файлов для загрузки"""
-        files = []
-        if not conn:
-            return files
-
+    def get_file_list(self, conn) -> List[Dict[str, str]]:
+        """Получает список файлов из базы данных"""
         query = """
-            SELECT so.name, sv.link
+            SELECT sv.link, so.name
             FROM storage_storageobject AS so
-            JOIN storage_version AS sv ON so.version_id = sv.id
-            WHERE so.type = 1 
-              AND sv.link IS NOT NULL 
+            LEFT JOIN storage_version AS sv ON sv.storage_object_id = so.id
+            WHERE so.type = 1
+              AND sv.link IS NOT NULL
               AND sv.link <> ''
-              AND lower(so.name) LIKE ANY(%s)
         """
-        
-        patterns = [f"%{ext}" for ext in self.allowed_extensions]
-
         try:
-            with conn.cursor() as cursor:
-                cursor.execute(query, (patterns,))
-                files = [{'name': row[0], 'link': row[1]} for row in cursor.fetchall()]
-                logger.info(f"Найдено {len(files)} файлов для загрузки")
+            with conn.cursor() as cur:
+                cur.execute(query)
+                return [{'name': row[1], 'url': row[0]} for row in cur.fetchall()]
         except psycopg2.Error as e:
             logger.error(f"Ошибка при запросе к БД: {e}")
-            conn.rollback()
-        
-        return files
+            return []
 
-    def process_files(self) -> Dict[str, Any]:
-        """Основной процесс загрузки файлов"""
-        stats = {
-            'total': 0,
-            'success': 0,
-            'skipped': 0,
-            'errors': 0,
-            'error_list': []
+    def prepare_download_dir(self):
+        """Подготавливает директорию для загрузки"""
+        try:
+            self.download_dir.mkdir(parents=True, exist_ok=True)
+            (self.download_dir / '.keep').touch()
+        except Exception as e:
+            logger.error(f"Ошибка при создании директории: {e}")
+            sys.exit(1)
+
+    def download_file(self, file_info: Dict[str, str]) -> Dict[str, str]:
+        """Загружает один файл с повторными попытками"""
+        original_name = file_info['name']
+        file_name = self.sanitize_filename(original_name)
+        file_url = file_info['url']
+        file_path = self.download_dir / file_name
+        
+        result = {
+            'filename': file_name,
+            'original_name': original_name,
+            'status': 'failed',
+            'message': '',
+            'attempts': 0
         }
 
+        # Проверка существующего файла
+        if file_path.exists() and file_path.stat().st_size > 0:
+            result.update({
+                'status': 'skipped',
+                'message': 'File already exists'
+            })
+            return result
+
+        full_url = f"{self.base_url.rstrip('/')}/{file_url.lstrip('/')}"
+        temp_path = file_path.with_suffix('.tmp')
+
+        headers = {
+            'User-Agent': 'Mozilla/5.0',
+            'Accept': '*/*'
+        }
+
+        for attempt in range(self.download_retries):
+            result['attempts'] += 1
+            try:
+                response = requests.get(
+                    full_url,
+                    headers=headers,
+                    stream=True,
+                    timeout=self.download_timeout
+                )
+                response.raise_for_status()
+
+                # Скачивание во временный файл
+                with open(temp_path, 'wb') as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+
+                # Проверка скачанного файла
+                if temp_path.exists() and temp_path.stat().st_size > 0:
+                    temp_path.rename(file_path)
+                    result.update({
+                        'status': 'success',
+                        'message': f"Downloaded {file_name}"
+                    })
+                    return result
+                else:
+                    raise Exception("Downloaded file is empty")
+
+            except requests.exceptions.RequestException as e:
+                result['message'] = f"HTTP error: {str(e)}"
+                if attempt == self.download_retries - 1:
+                    break
+                time.sleep(1)
+            except Exception as e:
+                result['message'] = f"Unexpected error: {str(e)}"
+                if attempt == self.download_retries - 1:
+                    break
+                time.sleep(1)
+            finally:
+                if temp_path.exists():
+                    temp_path.unlink()
+
+        return result
+
+    def run(self):
+        """Основной метод выполнения"""
+        self.prepare_download_dir()
+        
         conn = self.get_db_connection()
         if not conn:
-            return stats
+            sys.exit(1)
 
         try:
             files = self.get_file_list(conn)
-            stats['total'] = len(files)
-
             if not files:
-                logger.info("Нет файлов для загрузки")
-                return stats
+                logger.error("Не найдено файлов для загрузки. Проверьте:")
+                logger.error("1. Что БД восстановлена корректно")
+                logger.error("2. Что в БД есть файлы")
+                sys.exit(1)
 
-            # Фильтрация уже существующих файлов
-            existing_files = {f.name.lower() for f in self.download_dir.glob('*') if f.is_file()}
-            files_to_download = [
-                f for f in files 
-                if f['name'].lower() not in existing_files
-            ]
-            stats['skipped'] = stats['total'] - len(files_to_download)
-
-            if not files_to_download:
-                logger.info("Все файлы уже загружены")
-                return stats
-
-            logger.info(f"Начало загрузки {len(files_to_download)} файлов")
-
+            logger.info(f"Найдено {len(files)} файлов для загрузки")
+            
             with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-                future_to_file = {
-                    executor.submit(self.download_file, file): file 
-                    for file in files_to_download
+                futures = {
+                    executor.submit(self.download_file, file): file['name']
+                    for file in files
                 }
 
-                for future in concurrent.futures.as_completed(future_to_file):
-                    file = future_to_file[future]
+                for future in concurrent.futures.as_completed(futures):
+                    file_name = futures[future]
                     try:
                         result = future.result()
-                        if result['success']:
-                            stats['success'] += 1
-                            logger.debug(f"Успешно: {file['name']}")
+                        if result['status'] == 'success':
+                            logger.info(f"Успешно: {result['original_name']} -> {result['filename']} (попыток: {result['attempts']})")
+                        elif result['status'] == 'skipped':
+                            logger.debug(f"Пропущен: {result['filename']}")
                         else:
-                            stats['errors'] += 1
-                            stats['error_list'].append({
-                                'file': file['name'],
-                                'error': result['error']
-                            })
-                            logger.warning(f"Ошибка: {file['name']} - {result['error']}")
+                            logger.error(f"Ошибка: {result['original_name']} - {result['message']} (попыток: {result['attempts']})")
                     except Exception as e:
-                        stats['errors'] += 1
-                        error_msg = str(e)
-                        stats['error_list'].append({
-                            'file': file['name'],
-                            'error': error_msg
-                        })
-                        logger.error(f"Критическая ошибка: {file['name']} - {error_msg}")
+                        logger.error(f"Ошибка при загрузке {file_name}: {str(e)}")
 
         finally:
             conn.close()
-            logger.info("Соединение с БД закрыто")
-
-        return stats
-
-    def save_stats(self, stats: Dict[str, Any]) -> None:
-        """Сохранение статистики загрузки"""
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        stats_file = self.log_dir / "download_stats.log"
-
-        try:
-            with open(stats_file, 'a', encoding='utf-8') as f:
-                f.write(f"\n=== {timestamp} ===\n")
-                f.write(f"Всего файлов в БД: {stats['total']}\n")
-                f.write(f"Успешно загружено: {stats['success']}\n")
-                f.write(f"Пропущено (уже существует): {stats['skipped']}\n")
-                f.write(f"Ошибок загрузки: {stats['errors']}\n")
-                f.write("=" * 30 + "\n")
-            logger.info(f"Статистика сохранена в {stats_file}")
-        except IOError as e:
-            logger.error(f"Ошибка сохранения статистики: {e}")
-
-def load_config() -> Dict[str, str]:
-    """Загрузка конфигурации из переменных окружения"""
-    config = {
-        'base_url': os.getenv('BASE_DOWNLOAD_URL', 'https://hackaton.hb.ru-msk.vkcloud-storage.ru/media'),
-        'pg_user': os.getenv('POSTGRES_USER'),
-        'pg_password': os.getenv('POSTGRES_PASSWORD'),
-        'pg_host': os.getenv('PG_HOST', 'db'),
-        'pg_port': os.getenv('POSTGRES_PORT', '5432'),
-        'db_name': 'filestorage',
-        'download_dir': os.getenv('DOWNLOAD_DIR', 'data/downloaded_files'),
-        'log_dir': os.getenv('LOG_DIR', 'logs'),
-        'max_workers': os.getenv('DOWNLOAD_WORKERS', '10')
-    }
-    
-    if not all([config['pg_user'], config['pg_password']]):
-        logger.error("Необходимо установить POSTGRES_USER и POSTGRES_PASSWORD")
-        sys.exit(1)
-        
-    return config
-
-def main():
-    """Точка входа скрипта"""
-    config = load_config()
-    downloader = FileDownloader(config)
-    
-    logger.info("Начало процесса загрузки файлов")
-    stats = downloader.process_files()
-    
-    logger.info("\nИтоговая статистика:")
-    logger.info(f"Всего файлов в БД: {stats['total']}")
-    logger.info(f"Успешно загружено: {stats['success']}")
-    logger.info(f"Пропущено (уже существует): {stats['skipped']}")
-    logger.info(f"Ошибок загрузки: {stats['errors']}")
-    
-    downloader.save_stats(stats)
-    
-    if stats['errors'] > 0:
-        logger.warning(f"Были ошибки при загрузке {stats['errors']} файлов")
-        sys.exit(1)
-    else:
-        sys.exit(0)
+            logger.info("Завершение работы")
 
 if __name__ == "__main__":
-    main()
+    downloader = FileDownloader()
+    downloader.run()
+    
+# import os
+# import sys
+# from pathlib import Path
+# import concurrent.futures
+# from typing import List, Dict, Optional
+# import requests
+# import psycopg2
+# import logging
+# import time
+
+# # Настройка логирования
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format='%(asctime)s - %(levelname)s - %(message)s',
+#     handlers=[
+#         logging.FileHandler('/app/logs/file_downloader.log'),
+#         logging.StreamHandler()
+#     ]
+# )
+# logger = logging.getLogger(__name__)
+
+# class FileDownloader:
+#     def __init__(self):
+#         self.base_url = os.getenv('BASE_DOWNLOAD_URL', 'https://hackaton.hb.ru-msk.vkcloud-storage.ru/media')
+#         self.download_dir = Path('/app/data/downloaded_files')
+#         self.max_workers = 5
+#         self.db_retries = 3
+#         self.db_wait = 2
+#         self.download_retries = 3
+#         self.download_timeout = 30
+        
+#         # Создаем директории если их нет
+#         self.download_dir.mkdir(parents=True, exist_ok=True)
+#         Path('/app/logs').mkdir(parents=True, exist_ok=True)
+
+#     def get_db_connection(self) -> Optional[psycopg2.extensions.connection]:
+#         """Устанавливает соединение с БД с повторными попытками"""
+#         for attempt in range(self.db_retries):
+#             try:
+#                 conn = psycopg2.connect(
+#                     dbname=os.getenv('POSTGRES_DB', 'documents'),
+#                     user=os.getenv('POSTGRES_USER', 'admin'),
+#                     password=os.getenv('POSTGRES_PASSWORD', 'secret'),
+#                     host=os.getenv('PG_HOST', 'db'),
+#                     port=os.getenv('POSTGRES_PORT', '5432')
+#                 )
+#                 logger.info("Успешное подключение к базе данных")
+#                 return conn
+#             except psycopg2.OperationalError as e:
+#                 if attempt == self.db_retries - 1:
+#                     logger.error(f"Не удалось подключиться к БД после {self.db_retries} попыток: {e}")
+#                     return None
+#                 logger.warning(f"Попытка {attempt + 1}: Ошибка подключения к БД, повтор через {self.db_wait} сек...")
+#                 time.sleep(self.db_wait)
+
+#     def get_file_list(self, conn) -> List[Dict[str, str]]:
+#         """Получает список файлов из базы данных"""
+#         query = """
+#             SELECT sv.link, so.name
+#             FROM storage_storageobject AS so
+#             LEFT JOIN storage_version AS sv ON sv.storage_object_id = so.id
+#             WHERE so.type = 1
+#               AND sv.link IS NOT NULL
+#               AND sv.link <> ''
+#         """
+#         try:
+#             with conn.cursor() as cur:
+#                 cur.execute(query)
+#                 return [{'name': row[1], 'url': row[0]} for row in cur.fetchall()]
+#         except psycopg2.Error as e:
+#             logger.error(f"Ошибка при запросе к БД: {e}")
+#             return []
+
+#     def prepare_download_dir(self):
+#         """Подготавливает директорию для загрузки"""
+#         try:
+#             self.download_dir.mkdir(parents=True, exist_ok=True)
+#             (self.download_dir / '.keep').touch()
+#         except Exception as e:
+#             logger.error(f"Ошибка при создании директории: {e}")
+#             sys.exit(1)
+
+#     def download_file(self, file_info: Dict[str, str]) -> Dict[str, str]:
+#         """Загружает один файл с повторными попытками"""
+#         file_name = file_info['name']
+#         file_url = file_info['url']
+#         file_path = self.download_dir / file_name
+        
+#         result = {
+#             'filename': file_name,
+#             'status': 'failed',
+#             'message': '',
+#             'attempts': 0
+#         }
+
+#         # Проверка существующего файла
+#         if file_path.exists() and file_path.stat().st_size > 0:
+#             result.update({
+#                 'status': 'skipped',
+#                 'message': 'File already exists'
+#             })
+#             return result
+
+#         full_url = f"{self.base_url.rstrip('/')}/{file_url.lstrip('/')}"
+#         temp_path = file_path.with_suffix('.tmp')
+
+#         headers = {
+#             'User-Agent': 'Mozilla/5.0',
+#             'Accept': '*/*'
+#         }
+
+#         for attempt in range(self.download_retries):
+#             result['attempts'] += 1
+#             try:
+#                 response = requests.get(
+#                     full_url,
+#                     headers=headers,
+#                     stream=True,
+#                     timeout=self.download_timeout
+#                 )
+#                 response.raise_for_status()
+
+#                 # Скачивание во временный файл
+#                 with open(temp_path, 'wb') as f:
+#                     for chunk in response.iter_content(chunk_size=8192):
+#                         if chunk:
+#                             f.write(chunk)
+
+#                 # Проверка скачанного файла
+#                 if temp_path.exists() and temp_path.stat().st_size > 0:
+#                     temp_path.rename(file_path)
+#                     result.update({
+#                         'status': 'success',
+#                         'message': f"Downloaded {file_name}"
+#                     })
+#                     return result
+#                 else:
+#                     raise Exception("Downloaded file is empty")
+
+#             except requests.exceptions.RequestException as e:
+#                 result['message'] = f"HTTP error: {str(e)}"
+#                 if attempt == self.download_retries - 1:
+#                     break
+#                 time.sleep(1)
+#             except Exception as e:
+#                 result['message'] = f"Unexpected error: {str(e)}"
+#                 if attempt == self.download_retries - 1:
+#                     break
+#                 time.sleep(1)
+#             finally:
+#                 if temp_path.exists():
+#                     temp_path.unlink()
+
+#         return result
+
+#     def run(self):
+#         """Основной метод выполнения"""
+#         self.prepare_download_dir()
+        
+#         conn = self.get_db_connection()
+#         if not conn:
+#             sys.exit(1)
+
+#         try:
+#             files = self.get_file_list(conn)
+#             if not files:
+#                 logger.error("Не найдено файлов для загрузки. Проверьте:")
+#                 logger.error("1. Что БД восстановлена корректно")
+#                 logger.error("2. Что в БД есть файлы")
+#                 sys.exit(1)
+
+#             logger.info(f"Найдено {len(files)} файлов для загрузки")
+            
+#             with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+#                 futures = {
+#                     executor.submit(self.download_file, file): file['name']
+#                     for file in files
+#                 }
+
+#                 for future in concurrent.futures.as_completed(futures):
+#                     file_name = futures[future]
+#                     try:
+#                         result = future.result()
+#                         if result['status'] == 'success':
+#                             logger.info(f"Успешно: {file_name} (попыток: {result['attempts']})")
+#                         elif result['status'] == 'skipped':
+#                             logger.debug(f"Пропущен: {file_name}")
+#                         else:
+#                             logger.error(f"Ошибка: {file_name} - {result['message']} (попыток: {result['attempts']})")
+#                     except Exception as e:
+#                         logger.error(f"Ошибка при загрузке {file_name}: {str(e)}")
+
+#         finally:
+#             conn.close()
+#             logger.info("Завершение работы")
+
+# if __name__ == "__main__":
+#     downloader = FileDownloader()
+#     downloader.run()

@@ -1,0 +1,2529 @@
+2025-04-18 23:28:06,055 - ERROR - PostgreSQL не готов после ожидания
+2025-04-18 23:32:06,817 - INFO - Ожидание готовности PostgreSQL...
+2025-04-18 23:37:10,284 - INFO - PostgreSQL готов
+2025-04-18 23:37:10,285 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-18 23:37:11,945 - INFO - Успешно восстановлен /app/WorkWithDb/cms.dump
+2025-04-18 23:37:11,946 - INFO - Восстановление /app/WorkWithDb/lists.dump...
+2025-04-18 23:37:13,094 - ERROR - Ошибка при восстановлении /app/WorkWithDb/lists.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT lists_list_row lists_list_row_list_id_fkey
+pg_restore: dropping FK CONSTRAINT lists_list_group lists_list_group_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT lists_list_group lists_list_group_list_id_fkey
+pg_restore: dropping FK CONSTRAINT lists_list_group lists_list_group_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT lists_list_column lists_list_column_list_id_fkey
+pg_restore: dropping FK CONSTRAINT lists_list_row fk_lists_list_row_updated_by_id
+pg_restore: dropping FK CONSTRAINT lists_list_row fk_lists_list_row_group_id
+pg_restore: dropping FK CONSTRAINT lists_list_row fk_lists_list_row_created_by_id
+pg_restore: dropping FK CONSTRAINT lists_list_column fk_lists_list_column_updated_by_id
+pg_restore: dropping FK CONSTRAINT lists_list_column fk_lists_list_column_created_by_id
+pg_restore: dropping FK CONSTRAINT lists_list fk_list_updated_by_id
+pg_restore: dropping FK CONSTRAINT lists_list fk_list_created_by_id
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_lists_list_updated_by_id
+pg_restore: dropping INDEX ix_lists_list_status
+pg_restore: dropping INDEX ix_lists_list_site_id
+pg_restore: dropping INDEX ix_lists_list_row_updated_by_id
+pg_restore: dropping INDEX ix_lists_list_row_list_id
+pg_restore: dropping INDEX ix_lists_list_row_group_id
+pg_restore: dropping INDEX ix_lists_list_row_created_by_id
+pg_restore: dropping INDEX ix_lists_list_group_updated_by_id
+pg_restore: dropping INDEX ix_lists_list_group_list_id
+pg_restore: dropping INDEX ix_lists_list_group_created_by_id
+pg_restore: dropping INDEX ix_lists_list_created_by_id
+pg_restore: dropping INDEX ix_lists_list_column_updated_by_id
+pg_restore: dropping INDEX ix_lists_list_column_list_id
+pg_restore: dropping INDEX ix_lists_list_column_created_by_id
+pg_restore: dropping CONSTRAINT users_user users_user_pkey
+pg_restore: dropping CONSTRAINT users_user users_user_keycloak_id_key
+pg_restore: dropping CONSTRAINT lists_list unique_slug
+pg_restore: dropping CONSTRAINT lists_list unique_name_per_site
+pg_restore: dropping CONSTRAINT permissions_role_override target_id_target_type_unique_constraint
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3581; 2606 49559 CONSTRAINT roles_access_user_group roles_access_user_group_pkey phtest
+pg_restore: error: could not execute query: ERROR:  cannot drop constraint roles_access_user_group_pkey on table public.roles_access_user_group because other objects depend on it
+DETAIL:  constraint permissions_role_access_grant_group_id_fkey on table public.permissions_role_access_grant depends on index public.roles_access_user_group_pkey
+constraint permissions_role_access_grant_group_id_fkey on table public.permissions_role_to_user depends on index public.roles_access_user_group_pkey
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: ALTER TABLE IF EXISTS ONLY public.roles_access_user_group DROP CONSTRAINT IF EXISTS roles_access_user_group_pkey;
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT lists_list_row lists_list_row_pkey
+pg_restore: dropping CONSTRAINT lists_list lists_list_pkey
+pg_restore: dropping CONSTRAINT lists_list_group lists_list_group_pkey
+pg_restore: dropping CONSTRAINT lists_list_column lists_list_column_pkey
+pg_restore: dropping CONSTRAINT files_file files_file_storage_object_id_key
+pg_restore: dropping CONSTRAINT files_file files_file_pkey
+pg_restore: dropping CONSTRAINT dictionaries_dictionary dictionaries_dictionary_pkey
+pg_restore: dropping CONSTRAINT dictionaries_dictionary dictionaries_dictionary_dictionary_value_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata asyncprofilesync_profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata asyncprofilesync_profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_username_key
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping DEFAULT users_user id
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT lists_list_row id
+pg_restore: dropping DEFAULT lists_list_group id
+pg_restore: dropping DEFAULT lists_list_column id
+pg_restore: dropping DEFAULT lists_list id
+pg_restore: dropping DEFAULT files_file id
+pg_restore: dropping DEFAULT dictionaries_dictionary id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE users_user_id_seq
+pg_restore: dropping TABLE users_user
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: from TOC entry 244; 1259 49553 TABLE roles_access_user_group phtest
+pg_restore: error: could not execute query: ERROR:  cannot drop table public.roles_access_user_group because other objects depend on it
+DETAIL:  constraint permissions_role_access_grant_group_id_fkey on table public.permissions_role_access_grant depends on table public.roles_access_user_group
+constraint permissions_role_access_grant_group_id_fkey on table public.permissions_role_to_user depends on table public.roles_access_user_group
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP TABLE IF EXISTS public.roles_access_user_group;
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: from TOC entry 233; 1259 49463 SEQUENCE permissions_role_id_seq phtest
+pg_restore: error: could not execute query: ERROR:  cannot drop sequence public.permissions_role_id_seq because other objects depend on it
+DETAIL:  default value for column id of table public.deprecated_permissions_role depends on sequence public.permissions_role_id_seq
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP SEQUENCE IF EXISTS public.permissions_role_id_seq;
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE lists_list_row_id_seq
+pg_restore: dropping TABLE lists_list_row
+pg_restore: dropping SEQUENCE lists_list_id_seq
+pg_restore: dropping SEQUENCE lists_list_group_id_seq
+pg_restore: dropping TABLE lists_list_group
+pg_restore: dropping SEQUENCE lists_list_column_id_seq
+pg_restore: dropping TABLE lists_list_column
+pg_restore: dropping TABLE lists_list
+pg_restore: dropping SEQUENCE files_file_id_seq
+pg_restore: dropping TABLE files_file
+pg_restore: dropping SEQUENCE dictionaries_dictionary_id_seq
+pg_restore: dropping TABLE dictionaries_dictionary
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: from TOC entry 5; 3079 16940 EXTENSION uuid-ossp (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension uuid-ossp because other objects depend on it
+DETAIL:  default value for column id of table public.deprecated_deprecated_role depends on function public.uuid_generate_v4()
+default value for column id of table public.deprecated_deprecated_userrole depends on function public.uuid_generate_v4()
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS "uuid-ossp";
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: dropping EXTENSION btree_gin
+pg_restore: dropping SCHEMA public
+pg_restore: creating SCHEMA "public"
+pg_restore: creating EXTENSION "btree_gin"
+pg_restore: creating COMMENT "EXTENSION btree_gin"
+pg_restore: creating EXTENSION "pg_trgm"
+pg_restore: creating COMMENT "EXTENSION pg_trgm"
+pg_restore: creating EXTENSION "pgcrypto"
+pg_restore: creating COMMENT "EXTENSION pgcrypto"
+pg_restore: creating EXTENSION "uuid-ossp"
+pg_restore: creating COMMENT "EXTENSION "uuid-ossp""
+pg_restore: creating TABLE "public.admin_panel_users"
+pg_restore: creating SEQUENCE "public.admin_panel_users_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.admin_panel_users_id_seq"
+pg_restore: creating TABLE "public.alembic_version"
+pg_restore: creating TABLE "public.asyncprofilesync_profileuserdata"
+pg_restore: creating TABLE "public.commands_command"
+pg_restore: creating SEQUENCE "public.commands_command_id_seq"
+pg_restore: creating TABLE "public.commands_run"
+pg_restore: creating SEQUENCE "public.commands_run_id_seq"
+pg_restore: creating TABLE "public.dictionaries_dictionary"
+pg_restore: creating SEQUENCE "public.dictionaries_dictionary_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.dictionaries_dictionary_id_seq"
+pg_restore: creating TABLE "public.files_file"
+pg_restore: creating SEQUENCE "public.files_file_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.files_file_id_seq"
+pg_restore: creating TABLE "public.lists_list"
+pg_restore: creating TABLE "public.lists_list_column"
+pg_restore: creating SEQUENCE "public.lists_list_column_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.lists_list_column_id_seq"
+pg_restore: creating TABLE "public.lists_list_group"
+pg_restore: creating SEQUENCE "public.lists_list_group_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.lists_list_group_id_seq"
+pg_restore: creating SEQUENCE "public.lists_list_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.lists_list_id_seq"
+pg_restore: creating TABLE "public.lists_list_row"
+pg_restore: creating SEQUENCE "public.lists_list_row_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.lists_list_row_id_seq"
+pg_restore: creating TABLE "public.permissions_permission"
+pg_restore: creating SEQUENCE "public.permissions_permission_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.permissions_permission_id_seq"
+pg_restore: creating TABLE "public.permissions_permission_to_role_association"
+pg_restore: creating TABLE "public.permissions_role"
+pg_restore: creating TABLE "public.permissions_role_access_grant"
+pg_restore: creating SEQUENCE "public.permissions_role_access_grant_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.permissions_role_access_grant_id_seq"
+pg_restore: creating SEQUENCE "public.permissions_role_id_seq"
+pg_restore: from TOC entry 233; 1259 49463 SEQUENCE permissions_role_id_seq phtest
+pg_restore: error: could not execute query: ERROR:  relation "permissions_role_id_seq" already exists
+Command was: CREATE SEQUENCE public.permissions_role_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+pg_restore: creating SEQUENCE OWNED BY "public.permissions_role_id_seq"
+pg_restore: creating TABLE "public.permissions_role_override"
+pg_restore: creating SEQUENCE "public.permissions_role_override_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.permissions_role_override_id_seq"
+pg_restore: creating TABLE "public.permissions_role_to_user"
+pg_restore: creating SEQUENCE "public.permissions_role_to_user_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.permissions_role_to_user_id_seq"
+pg_restore: creating TABLE "public.roles_access_user_group"
+pg_restore: from TOC entry 244; 1259 49553 TABLE roles_access_user_group phtest
+pg_restore: error: could not execute query: ERROR:  relation "roles_access_user_group" already exists
+Command was: CREATE TABLE public.roles_access_user_group (
+    id uuid NOT NULL,
+    name text NOT NULL,
+    display_name text,
+    is_system_defined boolean NOT NULL,
+    owner_service_name text NOT NULL,
+    owner_service_entity_id uuid,
+    parent_id uuid
+);
+
+
+pg_restore: creating TABLE "public.roles_access_user_to_group"
+pg_restore: creating SEQUENCE "public.roles_access_user_to_group_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.roles_access_user_to_group_id_seq"
+pg_restore: creating TABLE "public.users_user"
+pg_restore: creating SEQUENCE "public.users_user_id_seq"
+pg_restore: creating SEQUENCE OWNED BY "public.users_user_id_seq"
+pg_restore: creating DEFAULT "public.admin_panel_users id"
+pg_restore: creating DEFAULT "public.dictionaries_dictionary id"
+pg_restore: creating DEFAULT "public.files_file id"
+pg_restore: creating DEFAULT "public.lists_list id"
+pg_restore: creating DEFAULT "public.lists_list_column id"
+pg_restore: creating DEFAULT "public.lists_list_group id"
+pg_restore: creating DEFAULT "public.lists_list_row id"
+pg_restore: creating DEFAULT "public.permissions_permission id"
+pg_restore: creating DEFAULT "public.permissions_role id"
+pg_restore: creating DEFAULT "public.permissions_role_access_grant id"
+pg_restore: creating DEFAULT "public.permissions_role_override id"
+pg_restore: creating DEFAULT "public.permissions_role_to_user id"
+pg_restore: creating DEFAULT "public.roles_access_user_to_group id"
+pg_restore: creating DEFAULT "public.users_user id"
+pg_restore: processing data for table "public.admin_panel_users"
+pg_restore: processing data for table "public.alembic_version"
+pg_restore: processing data for table "public.asyncprofilesync_profileuserdata"
+pg_restore: processing data for table "public.commands_command"
+pg_restore: processing data for table "public.commands_run"
+pg_restore: processing data for table "public.dictionaries_dictionary"
+pg_restore: processing data for table "public.files_file"
+pg_restore: processing data for table "public.lists_list"
+pg_restore: processing data for table "public.lists_list_column"
+pg_restore: processing data for table "public.lists_list_group"
+pg_restore: processing data for table "public.lists_list_row"
+pg_restore: processing data for table "public.permissions_permission"
+pg_restore: processing data for table "public.permissions_permission_to_role_association"
+pg_restore: processing data for table "public.permissions_role"
+pg_restore: processing data for table "public.permissions_role_access_grant"
+pg_restore: processing data for table "public.permissions_role_override"
+pg_restore: processing data for table "public.permissions_role_to_user"
+pg_restore: processing data for table "public.roles_access_user_group"
+pg_restore: from TOC entry 3785; 0 49553 TABLE DATA roles_access_user_group phtest
+pg_restore: error: COPY failed for table "roles_access_user_group": ERROR:  duplicate key value violates unique constraint "roles_access_user_group_pkey"
+DETAIL:  Key (id)=(432258b8-37b3-488f-a869-61a7904d9aca) already exists.
+CONTEXT:  COPY roles_access_user_group, line 1
+pg_restore: processing data for table "public.roles_access_user_to_group"
+pg_restore: processing data for table "public.users_user"
+pg_restore: executing SEQUENCE SET admin_panel_users_id_seq
+pg_restore: executing SEQUENCE SET commands_command_id_seq
+pg_restore: executing SEQUENCE SET commands_run_id_seq
+pg_restore: executing SEQUENCE SET dictionaries_dictionary_id_seq
+pg_restore: executing SEQUENCE SET files_file_id_seq
+pg_restore: executing SEQUENCE SET lists_list_column_id_seq
+pg_restore: executing SEQUENCE SET lists_list_group_id_seq
+pg_restore: executing SEQUENCE SET lists_list_id_seq
+pg_restore: executing SEQUENCE SET lists_list_row_id_seq
+pg_restore: executing SEQUENCE SET permissions_permission_id_seq
+pg_restore: executing SEQUENCE SET permissions_role_access_grant_id_seq
+pg_restore: executing SEQUENCE SET permissions_role_id_seq
+pg_restore: executing SEQUENCE SET permissions_role_override_id_seq
+pg_restore: executing SEQUENCE SET permissions_role_to_user_id_seq
+pg_restore: executing SEQUENCE SET roles_access_user_to_group_id_seq
+pg_restore: executing SEQUENCE SET users_user_id_seq
+pg_restore: creating CONSTRAINT "public.roles_access_user_to_group _user_keycloak_id_user_group_id_uc"
+pg_restore: creating CONSTRAINT "public.admin_panel_users admin_panel_users_pkey"
+pg_restore: creating CONSTRAINT "public.admin_panel_users admin_panel_users_username_key"
+pg_restore: creating CONSTRAINT "public.alembic_version alembic_version_pkc"
+pg_restore: creating CONSTRAINT "public.asyncprofilesync_profileuserdata asyncprofilesync_profileuserdata_keycloak_id_key"
+pg_restore: creating CONSTRAINT "public.asyncprofilesync_profileuserdata asyncprofilesync_profileuserdata_pkey"
+pg_restore: creating CONSTRAINT "public.commands_command commands_command_name_module_name_key"
+pg_restore: creating CONSTRAINT "public.commands_command commands_command_pkey"
+pg_restore: creating CONSTRAINT "public.commands_run commands_run_pkey"
+pg_restore: creating CONSTRAINT "public.dictionaries_dictionary dictionaries_dictionary_dictionary_value_id_key"
+pg_restore: creating CONSTRAINT "public.dictionaries_dictionary dictionaries_dictionary_pkey"
+pg_restore: creating CONSTRAINT "public.files_file files_file_pkey"
+pg_restore: creating CONSTRAINT "public.files_file files_file_storage_object_id_key"
+pg_restore: creating CONSTRAINT "public.lists_list_column lists_list_column_pkey"
+pg_restore: creating CONSTRAINT "public.lists_list_group lists_list_group_pkey"
+pg_restore: creating CONSTRAINT "public.lists_list lists_list_pkey"
+pg_restore: creating CONSTRAINT "public.lists_list_row lists_list_row_pkey"
+pg_restore: creating CONSTRAINT "public.permissions_permission permissions_permission_pkey"
+pg_restore: creating CONSTRAINT "public.permissions_permission_to_role_association permissions_permission_to_role_association_pkey"
+pg_restore: creating CONSTRAINT "public.permissions_role_access_grant permissions_role_access_grant_pkey"
+pg_restore: creating CONSTRAINT "public.permissions_role permissions_role_name_key"
+pg_restore: from TOC entry 3557; 2606 49473 CONSTRAINT permissions_role permissions_role_name_key phtest
+pg_restore: error: could not execute query: ERROR:  relation "permissions_role_name_key" already exists
+Command was: ALTER TABLE ONLY public.permissions_role
+    ADD CONSTRAINT permissions_role_name_key UNIQUE (name);
+
+
+pg_restore: creating CONSTRAINT "public.permissions_role_override permissions_role_override_pkey"
+pg_restore: creating CONSTRAINT "public.permissions_role permissions_role_pkey"
+pg_restore: from TOC entry 3559; 2606 49471 CONSTRAINT permissions_role permissions_role_pkey phtest
+pg_restore: error: could not execute query: ERROR:  relation "permissions_role_pkey" already exists
+Command was: ALTER TABLE ONLY public.permissions_role
+    ADD CONSTRAINT permissions_role_pkey PRIMARY KEY (id);
+
+
+pg_restore: creating CONSTRAINT "public.permissions_role_to_user permissions_role_to_user_pkey"
+pg_restore: creating CONSTRAINT "public.roles_access_user_group roles_access_user_group_name_key"
+pg_restore: creating CONSTRAINT "public.roles_access_user_group roles_access_user_group_pkey"
+pg_restore: from TOC entry 3581; 2606 49559 CONSTRAINT roles_access_user_group roles_access_user_group_pkey phtest
+pg_restore: error: could not execute query: ERROR:  multiple primary keys for table "roles_access_user_group" are not allowed
+Command was: ALTER TABLE ONLY public.roles_access_user_group
+    ADD CONSTRAINT roles_access_user_group_pkey PRIMARY KEY (id);
+
+
+pg_restore: creating CONSTRAINT "public.roles_access_user_to_group roles_access_user_to_group_pkey"
+pg_restore: creating CONSTRAINT "public.permissions_role_override target_id_target_type_unique_constraint"
+pg_restore: creating CONSTRAINT "public.lists_list unique_name_per_site"
+pg_restore: creating CONSTRAINT "public.lists_list unique_slug"
+pg_restore: creating CONSTRAINT "public.users_user users_user_keycloak_id_key"
+pg_restore: creating CONSTRAINT "public.users_user users_user_pkey"
+pg_restore: creating INDEX "public.ix_lists_list_column_created_by_id"
+pg_restore: creating INDEX "public.ix_lists_list_column_list_id"
+pg_restore: creating INDEX "public.ix_lists_list_column_updated_by_id"
+pg_restore: creating INDEX "public.ix_lists_list_created_by_id"
+pg_restore: creating INDEX "public.ix_lists_list_group_created_by_id"
+pg_restore: creating INDEX "public.ix_lists_list_group_list_id"
+pg_restore: creating INDEX "public.ix_lists_list_group_updated_by_id"
+pg_restore: creating INDEX "public.ix_lists_list_row_created_by_id"
+pg_restore: creating INDEX "public.ix_lists_list_row_group_id"
+pg_restore: creating INDEX "public.ix_lists_list_row_list_id"
+pg_restore: creating INDEX "public.ix_lists_list_row_updated_by_id"
+pg_restore: creating INDEX "public.ix_lists_list_site_id"
+pg_restore: creating INDEX "public.ix_lists_list_status"
+pg_restore: creating INDEX "public.ix_lists_list_updated_by_id"
+pg_restore: creating INDEX "public.ix_permissions_role_access_grant_role_id"
+pg_restore: creating INDEX "public.ix_permissions_role_access_grant_target_object_id"
+pg_restore: creating INDEX "public.ix_permissions_role_access_grant_user_id"
+pg_restore: creating INDEX "public.ix_permissions_role_override_target_object_id"
+pg_restore: creating INDEX "public.ix_permissions_role_to_user_role_id"
+pg_restore: creating INDEX "public.ix_permissions_role_to_user_user_id"
+pg_restore: creating INDEX "public.ix_roles_access_user_group_parent_id"
+pg_restore: creating INDEX "public.ix_roles_access_user_to_group_user_group_id"
+pg_restore: creating INDEX "public.ix_roles_access_user_to_group_user_keycloak_id"
+pg_restore: creating FK CONSTRAINT "public.commands_run commands_run_command_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.lists_list fk_list_created_by_id"
+pg_restore: creating FK CONSTRAINT "public.lists_list fk_list_updated_by_id"
+pg_restore: creating FK CONSTRAINT "public.lists_list_column fk_lists_list_column_created_by_id"
+pg_restore: creating FK CONSTRAINT "public.lists_list_column fk_lists_list_column_updated_by_id"
+pg_restore: creating FK CONSTRAINT "public.lists_list_row fk_lists_list_row_created_by_id"
+pg_restore: creating FK CONSTRAINT "public.lists_list_row fk_lists_list_row_group_id"
+pg_restore: creating FK CONSTRAINT "public.lists_list_row fk_lists_list_row_updated_by_id"
+pg_restore: creating FK CONSTRAINT "public.lists_list_column lists_list_column_list_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.lists_list_group lists_list_group_created_by_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.lists_list_group lists_list_group_list_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.lists_list_group lists_list_group_updated_by_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.lists_list_row lists_list_row_list_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey"
+pg_restore: from TOC entry 3606; 2606 49484 FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey phtest
+pg_restore: error: could not execute query: ERROR:  there is no unique constraint matching given keys for referenced table "permissions_role"
+Command was: ALTER TABLE ONLY public.permissions_permission_to_role_association
+    ADD CONSTRAINT permissions_permission_to_role_association_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.permissions_role(id) ON DELETE CASCADE;
+
+
+pg_restore: creating FK CONSTRAINT "public.permissions_role_access_grant permissions_role_access_grant_role_id_fkey"
+pg_restore: from TOC entry 3607; 2606 49498 FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey phtest
+pg_restore: error: could not execute query: ERROR:  there is no unique constraint matching given keys for referenced table "permissions_role"
+Command was: ALTER TABLE ONLY public.permissions_role_access_grant
+    ADD CONSTRAINT permissions_role_access_grant_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.permissions_role(id);
+
+
+pg_restore: creating FK CONSTRAINT "public.permissions_role_access_grant permissions_role_access_grant_user_group_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.permissions_role_access_grant permissions_role_access_grant_user_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.permissions_role_to_user permissions_role_to_user_role_id_fkey"
+pg_restore: from TOC entry 3610; 2606 49518 FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey phtest
+pg_restore: error: could not execute query: ERROR:  there is no unique constraint matching given keys for referenced table "permissions_role"
+Command was: ALTER TABLE ONLY public.permissions_role_to_user
+    ADD CONSTRAINT permissions_role_to_user_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.permissions_role(id);
+
+
+pg_restore: creating FK CONSTRAINT "public.permissions_role_to_user permissions_role_to_user_user_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.roles_access_user_group roles_access_user_group_parent_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey"
+pg_restore: warning: errors ignored on restore: 13
+
+2025-04-18 23:49:39,065 - INFO - PostgreSQL готов
+2025-04-18 23:49:39,065 - INFO - Восстановление /app/WorkWithDb/filestorage.dump...
+2025-04-18 23:49:41,452 - INFO - Успешно восстановлен /app/WorkWithDb/filestorage.dump
+2025-04-18 23:49:41,453 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-18 23:49:41,525 - ERROR - Ошибка при восстановлении /app/WorkWithDb/cms.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_role_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_site_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_section_id_with_default_role_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_group_role permissions_group_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_default_role permissions_default_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_user_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_updated_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_section_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus fk_feedbackstatus_feedback_id
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_feedback_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction deprecated_reaction_deleted_by_fkey
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_created_by_keycloak_id_fkey
+pg_restore: dropping INDEX unique_name_not_deleted_index
+pg_restore: dropping INDEX ix_sites_site_updated_by_id
+pg_restore: dropping INDEX ix_sites_site_status
+pg_restore: dropping INDEX ix_sites_site_parent_id
+pg_restore: dropping INDEX ix_sites_site_created_by_id
+pg_restore: dropping INDEX ix_sites_serviceobject_site_id
+pg_restore: dropping INDEX ix_sites_serviceobject_parent_id
+pg_restore: dropping INDEX ix_sites_serviceobject_navbar_order
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_group_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_group_id
+pg_restore: dropping INDEX ix_pages_page_parent_id
+pg_restore: dropping INDEX ix_only_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_status
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_feedback_feedback_page_id
+pg_restore: dropping INDEX ix_feedback_feedback_created_by_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_user_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_page_id
+pg_restore: dropping INDEX ix_deprecated_section_section_id_with_default_role
+pg_restore: dropping INDEX ix_deprecated_section_parent_id
+pg_restore: dropping INDEX ix_deprecated_page_section_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_status
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_deprecated_feedback_user_id
+pg_restore: dropping INDEX ix_deprecated_feedback_page_id
+pg_restore: dropping INDEX idx_page__ts_vector__body
+pg_restore: dropping INDEX idx_page__ts_vector__
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_pkey
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_user_id_key
+pg_restore: dropping CONSTRAINT users users_pkey
+pg_restore: dropping CONSTRAINT users users_keycloak_id_uq
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_object_id_role_id_user_id_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_id_key
+pg_restore: dropping CONSTRAINT sites_serviceobject type_external_id_unique_constraint
+pg_restore: dropping CONSTRAINT sites_site sites_site_slug_key
+pg_restore: dropping CONSTRAINT sites_site sites_site_pkey
+pg_restore: dropping CONSTRAINT sites_site sites_site_name_key
+pg_restore: dropping CONSTRAINT sites_serviceobject sites_serviceobject_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_id_key
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override role_override_target_unique
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_id_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant role_access_grant_unique_assignee_role
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_id_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_object_type_object_id_user_id_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_new_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_object_type_object_id_group_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_object_type_object_id_role_id_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_slug_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favourite_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favorite_page_id_user_id_unique
+pg_restore: dropping CONSTRAINT deprecated_page page_pkey
+pg_restore: dropping CONSTRAINT deprecated_page page_id_key
+pg_restore: dropping CONSTRAINT permissions_role name_scope_unique_constraint
+pg_restore: dropping CONSTRAINT deprecated_feedbackstatus feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT deprecated_feedback feedback_pkey
+pg_restore: dropping CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT feedback_feedback feedback_feedback_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_pkey
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping CONSTRAINT admin_panel_users _unique_username
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT feedback_feedbackstatus id
+pg_restore: dropping DEFAULT deprecated_viewedpagelog id
+pg_restore: dropping DEFAULT deprecated_permissions_user_role id
+pg_restore: dropping DEFAULT deprecated_permissions_role id
+pg_restore: dropping DEFAULT deprecated_permissions_group_role id
+pg_restore: dropping DEFAULT deprecated_permissions_default_role id
+pg_restore: dropping DEFAULT deprecated_feedbackstatus id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE viewedpagelog_id_seq
+pg_restore: dropping TABLE users
+pg_restore: dropping SEQUENCE users_id_seq
+pg_restore: dropping TABLE sites_site
+pg_restore: dropping TABLE sites_serviceobject
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: dropping SEQUENCE permissions_user_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_new_id_seq
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE permissions_group_role_id_seq
+pg_restore: dropping SEQUENCE permissions_default_role_id_seq
+pg_restore: dropping TABLE pages_page
+pg_restore: dropping TABLE pages_favorite_page
+pg_restore: dropping SEQUENCE feedbackstatus_id_seq
+pg_restore: dropping SEQUENCE feedback_feedbackstatus_id_seq
+pg_restore: dropping TABLE feedback_feedbackstatus
+pg_restore: dropping TABLE feedback_feedback
+pg_restore: dropping TABLE deprecated_viewedpagelog
+pg_restore: dropping TABLE deprecated_section
+pg_restore: dropping TABLE deprecated_permissions_user_role
+pg_restore: dropping TABLE deprecated_permissions_role
+pg_restore: dropping TABLE deprecated_permissions_group_role
+pg_restore: dropping TABLE deprecated_permissions_default_role
+pg_restore: dropping TABLE deprecated_page
+pg_restore: dropping TABLE deprecated_feedbackstatus
+pg_restore: dropping TABLE deprecated_feedback
+pg_restore: dropping TABLE deprecated_favoritepage
+pg_restore: dropping TABLE deprecated_deprecated_userrole
+pg_restore: dropping TABLE deprecated_deprecated_role
+pg_restore: dropping TABLE deprecated_deprecated_reaction
+pg_restore: dropping TABLE deprecated_attachment
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3; 3079 20247 EXTENSION pg_trgm (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension pg_trgm because other objects depend on it
+DETAIL:  index public.name_trgm_idx depends on operator class public.gin_trgm_ops for access method gin
+index public.name_trgm_idx_obj depends on operator class public.gin_trgm_ops for access method gin
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS pg_trgm;
+
+2025-04-19 00:12:06,927 - INFO - PostgreSQL готов
+2025-04-19 00:12:07,018 - INFO - База данных очищена
+2025-04-19 00:12:07,018 - INFO - Восстановление /app/WorkWithDb/filestorage.dump...
+2025-04-19 00:12:08,682 - INFO - Успешно восстановлен /app/WorkWithDb/filestorage.dump
+2025-04-19 00:12:08,683 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-19 00:12:08,751 - ERROR - Ошибка при восстановлении /app/WorkWithDb/cms.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_role_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_site_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_section_id_with_default_role_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_group_role permissions_group_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_default_role permissions_default_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_user_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_updated_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_section_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus fk_feedbackstatus_feedback_id
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_feedback_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction deprecated_reaction_deleted_by_fkey
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_created_by_keycloak_id_fkey
+pg_restore: dropping INDEX unique_name_not_deleted_index
+pg_restore: dropping INDEX ix_sites_site_updated_by_id
+pg_restore: dropping INDEX ix_sites_site_status
+pg_restore: dropping INDEX ix_sites_site_parent_id
+pg_restore: dropping INDEX ix_sites_site_created_by_id
+pg_restore: dropping INDEX ix_sites_serviceobject_site_id
+pg_restore: dropping INDEX ix_sites_serviceobject_parent_id
+pg_restore: dropping INDEX ix_sites_serviceobject_navbar_order
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_group_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_group_id
+pg_restore: dropping INDEX ix_pages_page_parent_id
+pg_restore: dropping INDEX ix_only_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_status
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_feedback_feedback_page_id
+pg_restore: dropping INDEX ix_feedback_feedback_created_by_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_user_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_page_id
+pg_restore: dropping INDEX ix_deprecated_section_section_id_with_default_role
+pg_restore: dropping INDEX ix_deprecated_section_parent_id
+pg_restore: dropping INDEX ix_deprecated_page_section_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_status
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_deprecated_feedback_user_id
+pg_restore: dropping INDEX ix_deprecated_feedback_page_id
+pg_restore: dropping INDEX idx_page__ts_vector__body
+pg_restore: dropping INDEX idx_page__ts_vector__
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_pkey
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_user_id_key
+pg_restore: dropping CONSTRAINT users users_pkey
+pg_restore: dropping CONSTRAINT users users_keycloak_id_uq
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_object_id_role_id_user_id_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_id_key
+pg_restore: dropping CONSTRAINT sites_serviceobject type_external_id_unique_constraint
+pg_restore: dropping CONSTRAINT sites_site sites_site_slug_key
+pg_restore: dropping CONSTRAINT sites_site sites_site_pkey
+pg_restore: dropping CONSTRAINT sites_site sites_site_name_key
+pg_restore: dropping CONSTRAINT sites_serviceobject sites_serviceobject_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_id_key
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override role_override_target_unique
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_id_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant role_access_grant_unique_assignee_role
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_id_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_object_type_object_id_user_id_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_new_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_object_type_object_id_group_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_object_type_object_id_role_id_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_slug_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favourite_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favorite_page_id_user_id_unique
+pg_restore: dropping CONSTRAINT deprecated_page page_pkey
+pg_restore: dropping CONSTRAINT deprecated_page page_id_key
+pg_restore: dropping CONSTRAINT permissions_role name_scope_unique_constraint
+pg_restore: dropping CONSTRAINT deprecated_feedbackstatus feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT deprecated_feedback feedback_pkey
+pg_restore: dropping CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT feedback_feedback feedback_feedback_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_pkey
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping CONSTRAINT admin_panel_users _unique_username
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT feedback_feedbackstatus id
+pg_restore: dropping DEFAULT deprecated_viewedpagelog id
+pg_restore: dropping DEFAULT deprecated_permissions_user_role id
+pg_restore: dropping DEFAULT deprecated_permissions_role id
+pg_restore: dropping DEFAULT deprecated_permissions_group_role id
+pg_restore: dropping DEFAULT deprecated_permissions_default_role id
+pg_restore: dropping DEFAULT deprecated_feedbackstatus id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE viewedpagelog_id_seq
+pg_restore: dropping TABLE users
+pg_restore: dropping SEQUENCE users_id_seq
+pg_restore: dropping TABLE sites_site
+pg_restore: dropping TABLE sites_serviceobject
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: dropping SEQUENCE permissions_user_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_new_id_seq
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE permissions_group_role_id_seq
+pg_restore: dropping SEQUENCE permissions_default_role_id_seq
+pg_restore: dropping TABLE pages_page
+pg_restore: dropping TABLE pages_favorite_page
+pg_restore: dropping SEQUENCE feedbackstatus_id_seq
+pg_restore: dropping SEQUENCE feedback_feedbackstatus_id_seq
+pg_restore: dropping TABLE feedback_feedbackstatus
+pg_restore: dropping TABLE feedback_feedback
+pg_restore: dropping TABLE deprecated_viewedpagelog
+pg_restore: dropping TABLE deprecated_section
+pg_restore: dropping TABLE deprecated_permissions_user_role
+pg_restore: dropping TABLE deprecated_permissions_role
+pg_restore: dropping TABLE deprecated_permissions_group_role
+pg_restore: dropping TABLE deprecated_permissions_default_role
+pg_restore: dropping TABLE deprecated_page
+pg_restore: dropping TABLE deprecated_feedbackstatus
+pg_restore: dropping TABLE deprecated_feedback
+pg_restore: dropping TABLE deprecated_favoritepage
+pg_restore: dropping TABLE deprecated_deprecated_userrole
+pg_restore: dropping TABLE deprecated_deprecated_role
+pg_restore: dropping TABLE deprecated_deprecated_reaction
+pg_restore: dropping TABLE deprecated_attachment
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3; 3079 20247 EXTENSION pg_trgm (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension pg_trgm because other objects depend on it
+DETAIL:  index public.name_trgm_idx depends on operator class public.gin_trgm_ops for access method gin
+index public.name_trgm_idx_obj depends on operator class public.gin_trgm_ops for access method gin
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS pg_trgm;
+
+2025-04-19 00:33:55,199 - INFO - PostgreSQL готов
+2025-04-19 00:33:55,286 - INFO - База данных очищена
+2025-04-19 00:33:55,286 - INFO - Восстановление /app/WorkWithDb/filestorage.dump...
+2025-04-19 00:33:56,945 - INFO - Успешно восстановлен /app/WorkWithDb/filestorage.dump
+2025-04-19 00:33:56,945 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-19 00:33:57,015 - ERROR - Ошибка при восстановлении /app/WorkWithDb/cms.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_role_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_site_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_section_id_with_default_role_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_group_role permissions_group_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_default_role permissions_default_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_user_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_updated_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_section_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus fk_feedbackstatus_feedback_id
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_feedback_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction deprecated_reaction_deleted_by_fkey
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_created_by_keycloak_id_fkey
+pg_restore: dropping INDEX unique_name_not_deleted_index
+pg_restore: dropping INDEX ix_sites_site_updated_by_id
+pg_restore: dropping INDEX ix_sites_site_status
+pg_restore: dropping INDEX ix_sites_site_parent_id
+pg_restore: dropping INDEX ix_sites_site_created_by_id
+pg_restore: dropping INDEX ix_sites_serviceobject_site_id
+pg_restore: dropping INDEX ix_sites_serviceobject_parent_id
+pg_restore: dropping INDEX ix_sites_serviceobject_navbar_order
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_group_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_group_id
+pg_restore: dropping INDEX ix_pages_page_parent_id
+pg_restore: dropping INDEX ix_only_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_status
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_feedback_feedback_page_id
+pg_restore: dropping INDEX ix_feedback_feedback_created_by_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_user_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_page_id
+pg_restore: dropping INDEX ix_deprecated_section_section_id_with_default_role
+pg_restore: dropping INDEX ix_deprecated_section_parent_id
+pg_restore: dropping INDEX ix_deprecated_page_section_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_status
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_deprecated_feedback_user_id
+pg_restore: dropping INDEX ix_deprecated_feedback_page_id
+pg_restore: dropping INDEX idx_page__ts_vector__body
+pg_restore: dropping INDEX idx_page__ts_vector__
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_pkey
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_user_id_key
+pg_restore: dropping CONSTRAINT users users_pkey
+pg_restore: dropping CONSTRAINT users users_keycloak_id_uq
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_object_id_role_id_user_id_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_id_key
+pg_restore: dropping CONSTRAINT sites_serviceobject type_external_id_unique_constraint
+pg_restore: dropping CONSTRAINT sites_site sites_site_slug_key
+pg_restore: dropping CONSTRAINT sites_site sites_site_pkey
+pg_restore: dropping CONSTRAINT sites_site sites_site_name_key
+pg_restore: dropping CONSTRAINT sites_serviceobject sites_serviceobject_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_id_key
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override role_override_target_unique
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_id_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant role_access_grant_unique_assignee_role
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_id_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_object_type_object_id_user_id_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_new_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_object_type_object_id_group_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_object_type_object_id_role_id_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_slug_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favourite_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favorite_page_id_user_id_unique
+pg_restore: dropping CONSTRAINT deprecated_page page_pkey
+pg_restore: dropping CONSTRAINT deprecated_page page_id_key
+pg_restore: dropping CONSTRAINT permissions_role name_scope_unique_constraint
+pg_restore: dropping CONSTRAINT deprecated_feedbackstatus feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT deprecated_feedback feedback_pkey
+pg_restore: dropping CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT feedback_feedback feedback_feedback_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_pkey
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping CONSTRAINT admin_panel_users _unique_username
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT feedback_feedbackstatus id
+pg_restore: dropping DEFAULT deprecated_viewedpagelog id
+pg_restore: dropping DEFAULT deprecated_permissions_user_role id
+pg_restore: dropping DEFAULT deprecated_permissions_role id
+pg_restore: dropping DEFAULT deprecated_permissions_group_role id
+pg_restore: dropping DEFAULT deprecated_permissions_default_role id
+pg_restore: dropping DEFAULT deprecated_feedbackstatus id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE viewedpagelog_id_seq
+pg_restore: dropping TABLE users
+pg_restore: dropping SEQUENCE users_id_seq
+pg_restore: dropping TABLE sites_site
+pg_restore: dropping TABLE sites_serviceobject
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: dropping SEQUENCE permissions_user_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_new_id_seq
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE permissions_group_role_id_seq
+pg_restore: dropping SEQUENCE permissions_default_role_id_seq
+pg_restore: dropping TABLE pages_page
+pg_restore: dropping TABLE pages_favorite_page
+pg_restore: dropping SEQUENCE feedbackstatus_id_seq
+pg_restore: dropping SEQUENCE feedback_feedbackstatus_id_seq
+pg_restore: dropping TABLE feedback_feedbackstatus
+pg_restore: dropping TABLE feedback_feedback
+pg_restore: dropping TABLE deprecated_viewedpagelog
+pg_restore: dropping TABLE deprecated_section
+pg_restore: dropping TABLE deprecated_permissions_user_role
+pg_restore: dropping TABLE deprecated_permissions_role
+pg_restore: dropping TABLE deprecated_permissions_group_role
+pg_restore: dropping TABLE deprecated_permissions_default_role
+pg_restore: dropping TABLE deprecated_page
+pg_restore: dropping TABLE deprecated_feedbackstatus
+pg_restore: dropping TABLE deprecated_feedback
+pg_restore: dropping TABLE deprecated_favoritepage
+pg_restore: dropping TABLE deprecated_deprecated_userrole
+pg_restore: dropping TABLE deprecated_deprecated_role
+pg_restore: dropping TABLE deprecated_deprecated_reaction
+pg_restore: dropping TABLE deprecated_attachment
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3; 3079 20247 EXTENSION pg_trgm (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension pg_trgm because other objects depend on it
+DETAIL:  index public.name_trgm_idx depends on operator class public.gin_trgm_ops for access method gin
+index public.name_trgm_idx_obj depends on operator class public.gin_trgm_ops for access method gin
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS pg_trgm;
+
+2025-04-19 00:38:58,477 - INFO - PostgreSQL готов
+2025-04-19 00:38:58,562 - INFO - База данных очищена
+2025-04-19 00:38:58,563 - INFO - Восстановление /app/WorkWithDb/filestorage.dump...
+2025-04-19 00:39:00,168 - INFO - Успешно восстановлен /app/WorkWithDb/filestorage.dump
+2025-04-19 00:39:00,169 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-19 00:39:00,238 - ERROR - Ошибка при восстановлении /app/WorkWithDb/cms.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_role_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_site_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_section_id_with_default_role_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_group_role permissions_group_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_default_role permissions_default_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_user_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_updated_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_section_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus fk_feedbackstatus_feedback_id
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_feedback_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction deprecated_reaction_deleted_by_fkey
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_created_by_keycloak_id_fkey
+pg_restore: dropping INDEX unique_name_not_deleted_index
+pg_restore: dropping INDEX ix_sites_site_updated_by_id
+pg_restore: dropping INDEX ix_sites_site_status
+pg_restore: dropping INDEX ix_sites_site_parent_id
+pg_restore: dropping INDEX ix_sites_site_created_by_id
+pg_restore: dropping INDEX ix_sites_serviceobject_site_id
+pg_restore: dropping INDEX ix_sites_serviceobject_parent_id
+pg_restore: dropping INDEX ix_sites_serviceobject_navbar_order
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_group_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_group_id
+pg_restore: dropping INDEX ix_pages_page_parent_id
+pg_restore: dropping INDEX ix_only_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_status
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_feedback_feedback_page_id
+pg_restore: dropping INDEX ix_feedback_feedback_created_by_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_user_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_page_id
+pg_restore: dropping INDEX ix_deprecated_section_section_id_with_default_role
+pg_restore: dropping INDEX ix_deprecated_section_parent_id
+pg_restore: dropping INDEX ix_deprecated_page_section_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_status
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_deprecated_feedback_user_id
+pg_restore: dropping INDEX ix_deprecated_feedback_page_id
+pg_restore: dropping INDEX idx_page__ts_vector__body
+pg_restore: dropping INDEX idx_page__ts_vector__
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_pkey
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_user_id_key
+pg_restore: dropping CONSTRAINT users users_pkey
+pg_restore: dropping CONSTRAINT users users_keycloak_id_uq
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_object_id_role_id_user_id_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_id_key
+pg_restore: dropping CONSTRAINT sites_serviceobject type_external_id_unique_constraint
+pg_restore: dropping CONSTRAINT sites_site sites_site_slug_key
+pg_restore: dropping CONSTRAINT sites_site sites_site_pkey
+pg_restore: dropping CONSTRAINT sites_site sites_site_name_key
+pg_restore: dropping CONSTRAINT sites_serviceobject sites_serviceobject_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_id_key
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override role_override_target_unique
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_id_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant role_access_grant_unique_assignee_role
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_id_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_object_type_object_id_user_id_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_new_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_object_type_object_id_group_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_object_type_object_id_role_id_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_slug_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favourite_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favorite_page_id_user_id_unique
+pg_restore: dropping CONSTRAINT deprecated_page page_pkey
+pg_restore: dropping CONSTRAINT deprecated_page page_id_key
+pg_restore: dropping CONSTRAINT permissions_role name_scope_unique_constraint
+pg_restore: dropping CONSTRAINT deprecated_feedbackstatus feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT deprecated_feedback feedback_pkey
+pg_restore: dropping CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT feedback_feedback feedback_feedback_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_pkey
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping CONSTRAINT admin_panel_users _unique_username
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT feedback_feedbackstatus id
+pg_restore: dropping DEFAULT deprecated_viewedpagelog id
+pg_restore: dropping DEFAULT deprecated_permissions_user_role id
+pg_restore: dropping DEFAULT deprecated_permissions_role id
+pg_restore: dropping DEFAULT deprecated_permissions_group_role id
+pg_restore: dropping DEFAULT deprecated_permissions_default_role id
+pg_restore: dropping DEFAULT deprecated_feedbackstatus id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE viewedpagelog_id_seq
+pg_restore: dropping TABLE users
+pg_restore: dropping SEQUENCE users_id_seq
+pg_restore: dropping TABLE sites_site
+pg_restore: dropping TABLE sites_serviceobject
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: dropping SEQUENCE permissions_user_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_new_id_seq
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE permissions_group_role_id_seq
+pg_restore: dropping SEQUENCE permissions_default_role_id_seq
+pg_restore: dropping TABLE pages_page
+pg_restore: dropping TABLE pages_favorite_page
+pg_restore: dropping SEQUENCE feedbackstatus_id_seq
+pg_restore: dropping SEQUENCE feedback_feedbackstatus_id_seq
+pg_restore: dropping TABLE feedback_feedbackstatus
+pg_restore: dropping TABLE feedback_feedback
+pg_restore: dropping TABLE deprecated_viewedpagelog
+pg_restore: dropping TABLE deprecated_section
+pg_restore: dropping TABLE deprecated_permissions_user_role
+pg_restore: dropping TABLE deprecated_permissions_role
+pg_restore: dropping TABLE deprecated_permissions_group_role
+pg_restore: dropping TABLE deprecated_permissions_default_role
+pg_restore: dropping TABLE deprecated_page
+pg_restore: dropping TABLE deprecated_feedbackstatus
+pg_restore: dropping TABLE deprecated_feedback
+pg_restore: dropping TABLE deprecated_favoritepage
+pg_restore: dropping TABLE deprecated_deprecated_userrole
+pg_restore: dropping TABLE deprecated_deprecated_role
+pg_restore: dropping TABLE deprecated_deprecated_reaction
+pg_restore: dropping TABLE deprecated_attachment
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3; 3079 20247 EXTENSION pg_trgm (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension pg_trgm because other objects depend on it
+DETAIL:  index public.name_trgm_idx depends on operator class public.gin_trgm_ops for access method gin
+index public.name_trgm_idx_obj depends on operator class public.gin_trgm_ops for access method gin
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS pg_trgm;
+
+2025-04-19 00:47:19,612 - INFO - PostgreSQL готов
+2025-04-19 00:47:19,786 - INFO - База данных очищена
+2025-04-19 00:47:19,787 - INFO - Восстановление /app/WorkWithDb/filestorage.dump...
+2025-04-19 00:47:23,086 - INFO - Успешно восстановлен /app/WorkWithDb/filestorage.dump
+2025-04-19 00:47:23,087 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-19 00:47:23,168 - ERROR - Ошибка при восстановлении /app/WorkWithDb/cms.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_role_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_site_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_section_id_with_default_role_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_group_role permissions_group_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_default_role permissions_default_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_user_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_updated_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_section_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus fk_feedbackstatus_feedback_id
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_feedback_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction deprecated_reaction_deleted_by_fkey
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_created_by_keycloak_id_fkey
+pg_restore: dropping INDEX unique_name_not_deleted_index
+pg_restore: dropping INDEX ix_sites_site_updated_by_id
+pg_restore: dropping INDEX ix_sites_site_status
+pg_restore: dropping INDEX ix_sites_site_parent_id
+pg_restore: dropping INDEX ix_sites_site_created_by_id
+pg_restore: dropping INDEX ix_sites_serviceobject_site_id
+pg_restore: dropping INDEX ix_sites_serviceobject_parent_id
+pg_restore: dropping INDEX ix_sites_serviceobject_navbar_order
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_group_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_group_id
+pg_restore: dropping INDEX ix_pages_page_parent_id
+pg_restore: dropping INDEX ix_only_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_status
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_feedback_feedback_page_id
+pg_restore: dropping INDEX ix_feedback_feedback_created_by_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_user_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_page_id
+pg_restore: dropping INDEX ix_deprecated_section_section_id_with_default_role
+pg_restore: dropping INDEX ix_deprecated_section_parent_id
+pg_restore: dropping INDEX ix_deprecated_page_section_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_status
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_deprecated_feedback_user_id
+pg_restore: dropping INDEX ix_deprecated_feedback_page_id
+pg_restore: dropping INDEX idx_page__ts_vector__body
+pg_restore: dropping INDEX idx_page__ts_vector__
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_pkey
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_user_id_key
+pg_restore: dropping CONSTRAINT users users_pkey
+pg_restore: dropping CONSTRAINT users users_keycloak_id_uq
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_object_id_role_id_user_id_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_id_key
+pg_restore: dropping CONSTRAINT sites_serviceobject type_external_id_unique_constraint
+pg_restore: dropping CONSTRAINT sites_site sites_site_slug_key
+pg_restore: dropping CONSTRAINT sites_site sites_site_pkey
+pg_restore: dropping CONSTRAINT sites_site sites_site_name_key
+pg_restore: dropping CONSTRAINT sites_serviceobject sites_serviceobject_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_id_key
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override role_override_target_unique
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_id_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant role_access_grant_unique_assignee_role
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_id_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_object_type_object_id_user_id_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_new_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_object_type_object_id_group_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_object_type_object_id_role_id_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_slug_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favourite_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favorite_page_id_user_id_unique
+pg_restore: dropping CONSTRAINT deprecated_page page_pkey
+pg_restore: dropping CONSTRAINT deprecated_page page_id_key
+pg_restore: dropping CONSTRAINT permissions_role name_scope_unique_constraint
+pg_restore: dropping CONSTRAINT deprecated_feedbackstatus feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT deprecated_feedback feedback_pkey
+pg_restore: dropping CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT feedback_feedback feedback_feedback_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_pkey
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping CONSTRAINT admin_panel_users _unique_username
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT feedback_feedbackstatus id
+pg_restore: dropping DEFAULT deprecated_viewedpagelog id
+pg_restore: dropping DEFAULT deprecated_permissions_user_role id
+pg_restore: dropping DEFAULT deprecated_permissions_role id
+pg_restore: dropping DEFAULT deprecated_permissions_group_role id
+pg_restore: dropping DEFAULT deprecated_permissions_default_role id
+pg_restore: dropping DEFAULT deprecated_feedbackstatus id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE viewedpagelog_id_seq
+pg_restore: dropping TABLE users
+pg_restore: dropping SEQUENCE users_id_seq
+pg_restore: dropping TABLE sites_site
+pg_restore: dropping TABLE sites_serviceobject
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: dropping SEQUENCE permissions_user_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_new_id_seq
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE permissions_group_role_id_seq
+pg_restore: dropping SEQUENCE permissions_default_role_id_seq
+pg_restore: dropping TABLE pages_page
+pg_restore: dropping TABLE pages_favorite_page
+pg_restore: dropping SEQUENCE feedbackstatus_id_seq
+pg_restore: dropping SEQUENCE feedback_feedbackstatus_id_seq
+pg_restore: dropping TABLE feedback_feedbackstatus
+pg_restore: dropping TABLE feedback_feedback
+pg_restore: dropping TABLE deprecated_viewedpagelog
+pg_restore: dropping TABLE deprecated_section
+pg_restore: dropping TABLE deprecated_permissions_user_role
+pg_restore: dropping TABLE deprecated_permissions_role
+pg_restore: dropping TABLE deprecated_permissions_group_role
+pg_restore: dropping TABLE deprecated_permissions_default_role
+pg_restore: dropping TABLE deprecated_page
+pg_restore: dropping TABLE deprecated_feedbackstatus
+pg_restore: dropping TABLE deprecated_feedback
+pg_restore: dropping TABLE deprecated_favoritepage
+pg_restore: dropping TABLE deprecated_deprecated_userrole
+pg_restore: dropping TABLE deprecated_deprecated_role
+pg_restore: dropping TABLE deprecated_deprecated_reaction
+pg_restore: dropping TABLE deprecated_attachment
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3; 3079 20247 EXTENSION pg_trgm (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension pg_trgm because other objects depend on it
+DETAIL:  index public.name_trgm_idx depends on operator class public.gin_trgm_ops for access method gin
+index public.name_trgm_idx_obj depends on operator class public.gin_trgm_ops for access method gin
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS pg_trgm;
+
+2025-04-19 01:05:35,192 - INFO - PostgreSQL готов
+2025-04-19 01:05:35,378 - INFO - База данных очищена и расширения созданы
+2025-04-19 01:05:35,379 - INFO - Восстановление /app/WorkWithDb/filestorage.dump...
+2025-04-19 01:05:39,450 - INFO - Успешно восстановлен /app/WorkWithDb/filestorage.dump
+2025-04-19 01:05:39,450 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-19 01:05:39,533 - ERROR - Ошибка при восстановлении /app/WorkWithDb/cms.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_role_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_site_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_section_id_with_default_role_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_group_role permissions_group_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_default_role permissions_default_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_user_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_updated_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_section_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus fk_feedbackstatus_feedback_id
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_feedback_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction deprecated_reaction_deleted_by_fkey
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_created_by_keycloak_id_fkey
+pg_restore: dropping INDEX unique_name_not_deleted_index
+pg_restore: dropping INDEX ix_sites_site_updated_by_id
+pg_restore: dropping INDEX ix_sites_site_status
+pg_restore: dropping INDEX ix_sites_site_parent_id
+pg_restore: dropping INDEX ix_sites_site_created_by_id
+pg_restore: dropping INDEX ix_sites_serviceobject_site_id
+pg_restore: dropping INDEX ix_sites_serviceobject_parent_id
+pg_restore: dropping INDEX ix_sites_serviceobject_navbar_order
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_group_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_group_id
+pg_restore: dropping INDEX ix_pages_page_parent_id
+pg_restore: dropping INDEX ix_only_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_status
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_feedback_feedback_page_id
+pg_restore: dropping INDEX ix_feedback_feedback_created_by_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_user_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_page_id
+pg_restore: dropping INDEX ix_deprecated_section_section_id_with_default_role
+pg_restore: dropping INDEX ix_deprecated_section_parent_id
+pg_restore: dropping INDEX ix_deprecated_page_section_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_status
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_deprecated_feedback_user_id
+pg_restore: dropping INDEX ix_deprecated_feedback_page_id
+pg_restore: dropping INDEX idx_page__ts_vector__body
+pg_restore: dropping INDEX idx_page__ts_vector__
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_pkey
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_user_id_key
+pg_restore: dropping CONSTRAINT users users_pkey
+pg_restore: dropping CONSTRAINT users users_keycloak_id_uq
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_object_id_role_id_user_id_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_id_key
+pg_restore: dropping CONSTRAINT sites_serviceobject type_external_id_unique_constraint
+pg_restore: dropping CONSTRAINT sites_site sites_site_slug_key
+pg_restore: dropping CONSTRAINT sites_site sites_site_pkey
+pg_restore: dropping CONSTRAINT sites_site sites_site_name_key
+pg_restore: dropping CONSTRAINT sites_serviceobject sites_serviceobject_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_id_key
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override role_override_target_unique
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_id_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant role_access_grant_unique_assignee_role
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_id_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_object_type_object_id_user_id_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_new_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_object_type_object_id_group_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_object_type_object_id_role_id_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_slug_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favourite_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favorite_page_id_user_id_unique
+pg_restore: dropping CONSTRAINT deprecated_page page_pkey
+pg_restore: dropping CONSTRAINT deprecated_page page_id_key
+pg_restore: dropping CONSTRAINT permissions_role name_scope_unique_constraint
+pg_restore: dropping CONSTRAINT deprecated_feedbackstatus feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT deprecated_feedback feedback_pkey
+pg_restore: dropping CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT feedback_feedback feedback_feedback_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_pkey
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping CONSTRAINT admin_panel_users _unique_username
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT feedback_feedbackstatus id
+pg_restore: dropping DEFAULT deprecated_viewedpagelog id
+pg_restore: dropping DEFAULT deprecated_permissions_user_role id
+pg_restore: dropping DEFAULT deprecated_permissions_role id
+pg_restore: dropping DEFAULT deprecated_permissions_group_role id
+pg_restore: dropping DEFAULT deprecated_permissions_default_role id
+pg_restore: dropping DEFAULT deprecated_feedbackstatus id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE viewedpagelog_id_seq
+pg_restore: dropping TABLE users
+pg_restore: dropping SEQUENCE users_id_seq
+pg_restore: dropping TABLE sites_site
+pg_restore: dropping TABLE sites_serviceobject
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: dropping SEQUENCE permissions_user_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_new_id_seq
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE permissions_group_role_id_seq
+pg_restore: dropping SEQUENCE permissions_default_role_id_seq
+pg_restore: dropping TABLE pages_page
+pg_restore: dropping TABLE pages_favorite_page
+pg_restore: dropping SEQUENCE feedbackstatus_id_seq
+pg_restore: dropping SEQUENCE feedback_feedbackstatus_id_seq
+pg_restore: dropping TABLE feedback_feedbackstatus
+pg_restore: dropping TABLE feedback_feedback
+pg_restore: dropping TABLE deprecated_viewedpagelog
+pg_restore: dropping TABLE deprecated_section
+pg_restore: dropping TABLE deprecated_permissions_user_role
+pg_restore: dropping TABLE deprecated_permissions_role
+pg_restore: dropping TABLE deprecated_permissions_group_role
+pg_restore: dropping TABLE deprecated_permissions_default_role
+pg_restore: dropping TABLE deprecated_page
+pg_restore: dropping TABLE deprecated_feedbackstatus
+pg_restore: dropping TABLE deprecated_feedback
+pg_restore: dropping TABLE deprecated_favoritepage
+pg_restore: dropping TABLE deprecated_deprecated_userrole
+pg_restore: dropping TABLE deprecated_deprecated_role
+pg_restore: dropping TABLE deprecated_deprecated_reaction
+pg_restore: dropping TABLE deprecated_attachment
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3; 3079 20247 EXTENSION pg_trgm (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension pg_trgm because other objects depend on it
+DETAIL:  index public.name_trgm_idx depends on operator class public.gin_trgm_ops for access method gin
+index public.name_trgm_idx_obj depends on operator class public.gin_trgm_ops for access method gin
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS pg_trgm;
+
+2025-04-19 01:08:55,724 - INFO - PostgreSQL готов
+2025-04-19 01:08:55,903 - INFO - База данных очищена и расширения созданы
+2025-04-19 01:08:55,904 - INFO - Восстановление /app/WorkWithDb/filestorage.dump...
+2025-04-19 01:08:59,336 - INFO - Успешно восстановлен /app/WorkWithDb/filestorage.dump
+2025-04-19 01:08:59,337 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-19 01:08:59,418 - ERROR - Ошибка при восстановлении /app/WorkWithDb/cms.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_role_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_site_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_section_id_with_default_role_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_group_role permissions_group_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_default_role permissions_default_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_user_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_updated_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_section_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus fk_feedbackstatus_feedback_id
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_feedback_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction deprecated_reaction_deleted_by_fkey
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_created_by_keycloak_id_fkey
+pg_restore: dropping INDEX unique_name_not_deleted_index
+pg_restore: dropping INDEX ix_sites_site_updated_by_id
+pg_restore: dropping INDEX ix_sites_site_status
+pg_restore: dropping INDEX ix_sites_site_parent_id
+pg_restore: dropping INDEX ix_sites_site_created_by_id
+pg_restore: dropping INDEX ix_sites_serviceobject_site_id
+pg_restore: dropping INDEX ix_sites_serviceobject_parent_id
+pg_restore: dropping INDEX ix_sites_serviceobject_navbar_order
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_group_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_group_id
+pg_restore: dropping INDEX ix_pages_page_parent_id
+pg_restore: dropping INDEX ix_only_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_status
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_feedback_feedback_page_id
+pg_restore: dropping INDEX ix_feedback_feedback_created_by_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_user_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_page_id
+pg_restore: dropping INDEX ix_deprecated_section_section_id_with_default_role
+pg_restore: dropping INDEX ix_deprecated_section_parent_id
+pg_restore: dropping INDEX ix_deprecated_page_section_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_status
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_deprecated_feedback_user_id
+pg_restore: dropping INDEX ix_deprecated_feedback_page_id
+pg_restore: dropping INDEX idx_page__ts_vector__body
+pg_restore: dropping INDEX idx_page__ts_vector__
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_pkey
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_user_id_key
+pg_restore: dropping CONSTRAINT users users_pkey
+pg_restore: dropping CONSTRAINT users users_keycloak_id_uq
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_object_id_role_id_user_id_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_id_key
+pg_restore: dropping CONSTRAINT sites_serviceobject type_external_id_unique_constraint
+pg_restore: dropping CONSTRAINT sites_site sites_site_slug_key
+pg_restore: dropping CONSTRAINT sites_site sites_site_pkey
+pg_restore: dropping CONSTRAINT sites_site sites_site_name_key
+pg_restore: dropping CONSTRAINT sites_serviceobject sites_serviceobject_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_id_key
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override role_override_target_unique
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_id_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant role_access_grant_unique_assignee_role
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_id_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_object_type_object_id_user_id_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_new_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_object_type_object_id_group_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_object_type_object_id_role_id_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_slug_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favourite_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favorite_page_id_user_id_unique
+pg_restore: dropping CONSTRAINT deprecated_page page_pkey
+pg_restore: dropping CONSTRAINT deprecated_page page_id_key
+pg_restore: dropping CONSTRAINT permissions_role name_scope_unique_constraint
+pg_restore: dropping CONSTRAINT deprecated_feedbackstatus feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT deprecated_feedback feedback_pkey
+pg_restore: dropping CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT feedback_feedback feedback_feedback_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_pkey
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping CONSTRAINT admin_panel_users _unique_username
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT feedback_feedbackstatus id
+pg_restore: dropping DEFAULT deprecated_viewedpagelog id
+pg_restore: dropping DEFAULT deprecated_permissions_user_role id
+pg_restore: dropping DEFAULT deprecated_permissions_role id
+pg_restore: dropping DEFAULT deprecated_permissions_group_role id
+pg_restore: dropping DEFAULT deprecated_permissions_default_role id
+pg_restore: dropping DEFAULT deprecated_feedbackstatus id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE viewedpagelog_id_seq
+pg_restore: dropping TABLE users
+pg_restore: dropping SEQUENCE users_id_seq
+pg_restore: dropping TABLE sites_site
+pg_restore: dropping TABLE sites_serviceobject
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: dropping SEQUENCE permissions_user_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_new_id_seq
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE permissions_group_role_id_seq
+pg_restore: dropping SEQUENCE permissions_default_role_id_seq
+pg_restore: dropping TABLE pages_page
+pg_restore: dropping TABLE pages_favorite_page
+pg_restore: dropping SEQUENCE feedbackstatus_id_seq
+pg_restore: dropping SEQUENCE feedback_feedbackstatus_id_seq
+pg_restore: dropping TABLE feedback_feedbackstatus
+pg_restore: dropping TABLE feedback_feedback
+pg_restore: dropping TABLE deprecated_viewedpagelog
+pg_restore: dropping TABLE deprecated_section
+pg_restore: dropping TABLE deprecated_permissions_user_role
+pg_restore: dropping TABLE deprecated_permissions_role
+pg_restore: dropping TABLE deprecated_permissions_group_role
+pg_restore: dropping TABLE deprecated_permissions_default_role
+pg_restore: dropping TABLE deprecated_page
+pg_restore: dropping TABLE deprecated_feedbackstatus
+pg_restore: dropping TABLE deprecated_feedback
+pg_restore: dropping TABLE deprecated_favoritepage
+pg_restore: dropping TABLE deprecated_deprecated_userrole
+pg_restore: dropping TABLE deprecated_deprecated_role
+pg_restore: dropping TABLE deprecated_deprecated_reaction
+pg_restore: dropping TABLE deprecated_attachment
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3; 3079 20247 EXTENSION pg_trgm (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension pg_trgm because other objects depend on it
+DETAIL:  index public.name_trgm_idx depends on operator class public.gin_trgm_ops for access method gin
+index public.name_trgm_idx_obj depends on operator class public.gin_trgm_ops for access method gin
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS pg_trgm;
+
+2025-04-19 01:39:30,792 - INFO - PostgreSQL готов
+2025-04-19 01:39:30,983 - INFO - База данных очищена и расширения созданы
+2025-04-19 01:39:30,983 - INFO - Восстановление /app/WorkWithDb/filestorage.dump...
+2025-04-19 01:39:35,452 - INFO - Успешно восстановлен /app/WorkWithDb/filestorage.dump
+2025-04-19 01:39:35,453 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-19 01:39:35,532 - ERROR - Ошибка при восстановлении /app/WorkWithDb/cms.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_role_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_site_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_section_id_with_default_role_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_group_role permissions_group_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_default_role permissions_default_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_user_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_updated_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_section_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus fk_feedbackstatus_feedback_id
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_feedback_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction deprecated_reaction_deleted_by_fkey
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_created_by_keycloak_id_fkey
+pg_restore: dropping INDEX unique_name_not_deleted_index
+pg_restore: dropping INDEX ix_sites_site_updated_by_id
+pg_restore: dropping INDEX ix_sites_site_status
+pg_restore: dropping INDEX ix_sites_site_parent_id
+pg_restore: dropping INDEX ix_sites_site_created_by_id
+pg_restore: dropping INDEX ix_sites_serviceobject_site_id
+pg_restore: dropping INDEX ix_sites_serviceobject_parent_id
+pg_restore: dropping INDEX ix_sites_serviceobject_navbar_order
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_group_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_group_id
+pg_restore: dropping INDEX ix_pages_page_parent_id
+pg_restore: dropping INDEX ix_only_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_status
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_feedback_feedback_page_id
+pg_restore: dropping INDEX ix_feedback_feedback_created_by_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_user_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_page_id
+pg_restore: dropping INDEX ix_deprecated_section_section_id_with_default_role
+pg_restore: dropping INDEX ix_deprecated_section_parent_id
+pg_restore: dropping INDEX ix_deprecated_page_section_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_status
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_deprecated_feedback_user_id
+pg_restore: dropping INDEX ix_deprecated_feedback_page_id
+pg_restore: dropping INDEX idx_page__ts_vector__body
+pg_restore: dropping INDEX idx_page__ts_vector__
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_pkey
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_user_id_key
+pg_restore: dropping CONSTRAINT users users_pkey
+pg_restore: dropping CONSTRAINT users users_keycloak_id_uq
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_object_id_role_id_user_id_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_id_key
+pg_restore: dropping CONSTRAINT sites_serviceobject type_external_id_unique_constraint
+pg_restore: dropping CONSTRAINT sites_site sites_site_slug_key
+pg_restore: dropping CONSTRAINT sites_site sites_site_pkey
+pg_restore: dropping CONSTRAINT sites_site sites_site_name_key
+pg_restore: dropping CONSTRAINT sites_serviceobject sites_serviceobject_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_id_key
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override role_override_target_unique
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_id_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant role_access_grant_unique_assignee_role
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_id_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_object_type_object_id_user_id_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_new_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_object_type_object_id_group_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_object_type_object_id_role_id_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_slug_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favourite_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favorite_page_id_user_id_unique
+pg_restore: dropping CONSTRAINT deprecated_page page_pkey
+pg_restore: dropping CONSTRAINT deprecated_page page_id_key
+pg_restore: dropping CONSTRAINT permissions_role name_scope_unique_constraint
+pg_restore: dropping CONSTRAINT deprecated_feedbackstatus feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT deprecated_feedback feedback_pkey
+pg_restore: dropping CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT feedback_feedback feedback_feedback_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_pkey
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping CONSTRAINT admin_panel_users _unique_username
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT feedback_feedbackstatus id
+pg_restore: dropping DEFAULT deprecated_viewedpagelog id
+pg_restore: dropping DEFAULT deprecated_permissions_user_role id
+pg_restore: dropping DEFAULT deprecated_permissions_role id
+pg_restore: dropping DEFAULT deprecated_permissions_group_role id
+pg_restore: dropping DEFAULT deprecated_permissions_default_role id
+pg_restore: dropping DEFAULT deprecated_feedbackstatus id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE viewedpagelog_id_seq
+pg_restore: dropping TABLE users
+pg_restore: dropping SEQUENCE users_id_seq
+pg_restore: dropping TABLE sites_site
+pg_restore: dropping TABLE sites_serviceobject
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: dropping SEQUENCE permissions_user_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_new_id_seq
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE permissions_group_role_id_seq
+pg_restore: dropping SEQUENCE permissions_default_role_id_seq
+pg_restore: dropping TABLE pages_page
+pg_restore: dropping TABLE pages_favorite_page
+pg_restore: dropping SEQUENCE feedbackstatus_id_seq
+pg_restore: dropping SEQUENCE feedback_feedbackstatus_id_seq
+pg_restore: dropping TABLE feedback_feedbackstatus
+pg_restore: dropping TABLE feedback_feedback
+pg_restore: dropping TABLE deprecated_viewedpagelog
+pg_restore: dropping TABLE deprecated_section
+pg_restore: dropping TABLE deprecated_permissions_user_role
+pg_restore: dropping TABLE deprecated_permissions_role
+pg_restore: dropping TABLE deprecated_permissions_group_role
+pg_restore: dropping TABLE deprecated_permissions_default_role
+pg_restore: dropping TABLE deprecated_page
+pg_restore: dropping TABLE deprecated_feedbackstatus
+pg_restore: dropping TABLE deprecated_feedback
+pg_restore: dropping TABLE deprecated_favoritepage
+pg_restore: dropping TABLE deprecated_deprecated_userrole
+pg_restore: dropping TABLE deprecated_deprecated_role
+pg_restore: dropping TABLE deprecated_deprecated_reaction
+pg_restore: dropping TABLE deprecated_attachment
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3; 3079 20247 EXTENSION pg_trgm (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension pg_trgm because other objects depend on it
+DETAIL:  index public.name_trgm_idx depends on operator class public.gin_trgm_ops for access method gin
+index public.name_trgm_idx_obj depends on operator class public.gin_trgm_ops for access method gin
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS pg_trgm;
+
+2025-04-19 01:42:30,477 - INFO - PostgreSQL готов
+2025-04-19 01:42:30,647 - INFO - База данных очищена и расширения созданы
+2025-04-19 01:42:30,647 - INFO - Восстановление /app/WorkWithDb/filestorage.dump...
+2025-04-19 01:42:34,027 - INFO - Успешно восстановлен /app/WorkWithDb/filestorage.dump
+2025-04-19 01:42:34,028 - INFO - Восстановление /app/WorkWithDb/cms.dump...
+2025-04-19 01:42:34,110 - ERROR - Ошибка при восстановлении /app/WorkWithDb/cms.dump: pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_userrole userrole_role_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_site sites_site_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_site_id_fkey
+pg_restore: dropping FK CONSTRAINT sites_serviceobject sites_serviceobject_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_section_id_with_default_role_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_section section_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_to_group roles_access_user_to_group_user_group_id_fkey
+pg_restore: dropping FK CONSTRAINT roles_access_user_group roles_access_user_group_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction reaction_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_user_role permissions_user_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_to_user_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_user_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_to_user permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_role_access_grant permissions_role_access_grant_group_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_role_id_fkey
+pg_restore: dropping FK CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_permission_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_group_role permissions_group_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_permissions_default_role permissions_default_role_role_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_updated_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_parent_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_page pages_page_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_user_id_fkey
+pg_restore: dropping FK CONSTRAINT pages_favorite_page pages_favourite_page_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_updated_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_section_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_deleted_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_page page_created_by_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus fk_feedbackstatus_feedback_id
+pg_restore: dropping FK CONSTRAINT deprecated_feedbackstatus feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_user_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_feedback feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_feedback_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_page_id_fkey
+pg_restore: dropping FK CONSTRAINT feedback_feedback feedback_feedback_created_by_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_user_keycloak_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_favoritepage favouritepage_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_deprecated_reaction deprecated_reaction_deleted_by_fkey
+pg_restore: dropping FK CONSTRAINT commands_run commands_run_command_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_page_id_fkey
+pg_restore: dropping FK CONSTRAINT deprecated_attachment attachment_created_by_keycloak_id_fkey
+pg_restore: dropping INDEX unique_name_not_deleted_index
+pg_restore: dropping INDEX ix_sites_site_updated_by_id
+pg_restore: dropping INDEX ix_sites_site_status
+pg_restore: dropping INDEX ix_sites_site_parent_id
+pg_restore: dropping INDEX ix_sites_site_created_by_id
+pg_restore: dropping INDEX ix_sites_serviceobject_site_id
+pg_restore: dropping INDEX ix_sites_serviceobject_parent_id
+pg_restore: dropping INDEX ix_sites_serviceobject_navbar_order
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_keycloak_id
+pg_restore: dropping INDEX ix_roles_access_user_to_group_user_group_id
+pg_restore: dropping INDEX ix_roles_access_user_group_parent_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_user_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_role_id
+pg_restore: dropping INDEX ix_permissions_role_to_user_group_id
+pg_restore: dropping INDEX ix_permissions_role_override_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_user_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_target_object_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_role_id
+pg_restore: dropping INDEX ix_permissions_role_access_grant_group_id
+pg_restore: dropping INDEX ix_pages_page_parent_id
+pg_restore: dropping INDEX ix_only_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_one_active_status_per_feedback
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_status
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_feedback_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_feedback_feedback_page_id
+pg_restore: dropping INDEX ix_feedback_feedback_created_by_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_user_id
+pg_restore: dropping INDEX ix_deprecated_viewedpagelog_page_id
+pg_restore: dropping INDEX ix_deprecated_section_section_id_with_default_role
+pg_restore: dropping INDEX ix_deprecated_section_parent_id
+pg_restore: dropping INDEX ix_deprecated_page_section_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_status
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_feedback_id
+pg_restore: dropping INDEX ix_deprecated_feedbackstatus_created_by_id
+pg_restore: dropping INDEX ix_deprecated_feedback_user_id
+pg_restore: dropping INDEX ix_deprecated_feedback_page_id
+pg_restore: dropping INDEX idx_page__ts_vector__body
+pg_restore: dropping INDEX idx_page__ts_vector__
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_pkey
+pg_restore: dropping CONSTRAINT deprecated_viewedpagelog viewedpagelog_page_id_user_id_key
+pg_restore: dropping CONSTRAINT users users_pkey
+pg_restore: dropping CONSTRAINT users users_keycloak_id_uq
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_object_id_role_id_user_id_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_userrole userrole_id_key
+pg_restore: dropping CONSTRAINT sites_serviceobject type_external_id_unique_constraint
+pg_restore: dropping CONSTRAINT sites_site sites_site_slug_key
+pg_restore: dropping CONSTRAINT sites_site sites_site_pkey
+pg_restore: dropping CONSTRAINT sites_site sites_site_name_key
+pg_restore: dropping CONSTRAINT sites_serviceobject sites_serviceobject_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_pkey
+pg_restore: dropping CONSTRAINT deprecated_section section_id_key
+pg_restore: dropping CONSTRAINT roles_access_user_to_group roles_access_user_to_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_group roles_access_user_group_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override role_override_target_unique
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_name_key
+pg_restore: dropping CONSTRAINT deprecated_deprecated_role role_id_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant role_access_grant_unique_assignee_role
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_pkey
+pg_restore: dropping CONSTRAINT deprecated_deprecated_reaction reaction_id_key
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_pkey
+pg_restore: dropping CONSTRAINT asyncprofilesync_profileuserdata profileuserdata_keycloak_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_user_role permissions_user_role_object_type_object_id_user_id_key
+pg_restore: dropping CONSTRAINT permissions_role_to_user permissions_role_to_user_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_pkey
+pg_restore: dropping CONSTRAINT permissions_role_override permissions_role_override_pkey
+pg_restore: dropping CONSTRAINT permissions_role permissions_role_new_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_role permissions_role_name_key
+pg_restore: dropping CONSTRAINT permissions_role_access_grant permissions_role_access_grant_pkey
+pg_restore: dropping CONSTRAINT permissions_permission_to_role_association permissions_permission_to_role_association_pkey
+pg_restore: dropping CONSTRAINT permissions_permission permissions_permission_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_group_role permissions_group_role_object_type_object_id_group_id_key
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_pkey
+pg_restore: dropping CONSTRAINT deprecated_permissions_default_role permissions_default_role_object_type_object_id_role_id_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_slug_key
+pg_restore: dropping CONSTRAINT pages_page pages_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favourite_page_pkey
+pg_restore: dropping CONSTRAINT pages_favorite_page pages_favorite_page_id_user_id_unique
+pg_restore: dropping CONSTRAINT deprecated_page page_pkey
+pg_restore: dropping CONSTRAINT deprecated_page page_id_key
+pg_restore: dropping CONSTRAINT permissions_role name_scope_unique_constraint
+pg_restore: dropping CONSTRAINT deprecated_feedbackstatus feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT deprecated_feedback feedback_pkey
+pg_restore: dropping CONSTRAINT feedback_feedbackstatus feedback_feedbackstatus_pkey
+pg_restore: dropping CONSTRAINT feedback_feedback feedback_feedback_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_pkey
+pg_restore: dropping CONSTRAINT deprecated_favoritepage favouritepage_id_key
+pg_restore: dropping CONSTRAINT commands_run commands_run_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_pkey
+pg_restore: dropping CONSTRAINT commands_command commands_command_name_module_name_key
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_pkey
+pg_restore: dropping CONSTRAINT deprecated_attachment attachment_id_key
+pg_restore: dropping CONSTRAINT alembic_version alembic_version_pkc
+pg_restore: dropping CONSTRAINT admin_panel_users admin_panel_users_pkey
+pg_restore: dropping CONSTRAINT roles_access_user_to_group _user_keycloak_id_user_group_id_uc
+pg_restore: dropping CONSTRAINT admin_panel_users _unique_username
+pg_restore: dropping DEFAULT roles_access_user_to_group id
+pg_restore: dropping DEFAULT permissions_role_to_user id
+pg_restore: dropping DEFAULT permissions_role_override id
+pg_restore: dropping DEFAULT permissions_role_access_grant id
+pg_restore: dropping DEFAULT permissions_role id
+pg_restore: dropping DEFAULT permissions_permission id
+pg_restore: dropping DEFAULT feedback_feedbackstatus id
+pg_restore: dropping DEFAULT deprecated_viewedpagelog id
+pg_restore: dropping DEFAULT deprecated_permissions_user_role id
+pg_restore: dropping DEFAULT deprecated_permissions_role id
+pg_restore: dropping DEFAULT deprecated_permissions_group_role id
+pg_restore: dropping DEFAULT deprecated_permissions_default_role id
+pg_restore: dropping DEFAULT deprecated_feedbackstatus id
+pg_restore: dropping DEFAULT admin_panel_users id
+pg_restore: dropping SEQUENCE viewedpagelog_id_seq
+pg_restore: dropping TABLE users
+pg_restore: dropping SEQUENCE users_id_seq
+pg_restore: dropping TABLE sites_site
+pg_restore: dropping TABLE sites_serviceobject
+pg_restore: dropping SEQUENCE roles_access_user_to_group_id_seq
+pg_restore: dropping TABLE roles_access_user_to_group
+pg_restore: dropping TABLE roles_access_user_group
+pg_restore: dropping SEQUENCE permissions_user_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_to_user_id_seq
+pg_restore: dropping TABLE permissions_role_to_user
+pg_restore: dropping SEQUENCE permissions_role_override_id_seq
+pg_restore: dropping TABLE permissions_role_override
+pg_restore: dropping SEQUENCE permissions_role_new_id_seq
+pg_restore: dropping SEQUENCE permissions_role_id_seq
+pg_restore: dropping SEQUENCE permissions_role_access_grant_id_seq
+pg_restore: dropping TABLE permissions_role_access_grant
+pg_restore: dropping TABLE permissions_role
+pg_restore: dropping TABLE permissions_permission_to_role_association
+pg_restore: dropping SEQUENCE permissions_permission_id_seq
+pg_restore: dropping TABLE permissions_permission
+pg_restore: dropping SEQUENCE permissions_group_role_id_seq
+pg_restore: dropping SEQUENCE permissions_default_role_id_seq
+pg_restore: dropping TABLE pages_page
+pg_restore: dropping TABLE pages_favorite_page
+pg_restore: dropping SEQUENCE feedbackstatus_id_seq
+pg_restore: dropping SEQUENCE feedback_feedbackstatus_id_seq
+pg_restore: dropping TABLE feedback_feedbackstatus
+pg_restore: dropping TABLE feedback_feedback
+pg_restore: dropping TABLE deprecated_viewedpagelog
+pg_restore: dropping TABLE deprecated_section
+pg_restore: dropping TABLE deprecated_permissions_user_role
+pg_restore: dropping TABLE deprecated_permissions_role
+pg_restore: dropping TABLE deprecated_permissions_group_role
+pg_restore: dropping TABLE deprecated_permissions_default_role
+pg_restore: dropping TABLE deprecated_page
+pg_restore: dropping TABLE deprecated_feedbackstatus
+pg_restore: dropping TABLE deprecated_feedback
+pg_restore: dropping TABLE deprecated_favoritepage
+pg_restore: dropping TABLE deprecated_deprecated_userrole
+pg_restore: dropping TABLE deprecated_deprecated_role
+pg_restore: dropping TABLE deprecated_deprecated_reaction
+pg_restore: dropping TABLE deprecated_attachment
+pg_restore: dropping SEQUENCE commands_run_id_seq
+pg_restore: dropping TABLE commands_run
+pg_restore: dropping SEQUENCE commands_command_id_seq
+pg_restore: dropping TABLE commands_command
+pg_restore: dropping TABLE asyncprofilesync_profileuserdata
+pg_restore: dropping TABLE alembic_version
+pg_restore: dropping SEQUENCE admin_panel_users_id_seq
+pg_restore: dropping TABLE admin_panel_users
+pg_restore: dropping EXTENSION uuid-ossp
+pg_restore: dropping EXTENSION pgcrypto
+pg_restore: dropping EXTENSION pg_trgm
+pg_restore: while PROCESSING TOC:
+pg_restore: from TOC entry 3; 3079 20247 EXTENSION pg_trgm (no owner)
+pg_restore: error: could not execute query: ERROR:  cannot drop extension pg_trgm because other objects depend on it
+DETAIL:  index public.name_trgm_idx depends on operator class public.gin_trgm_ops for access method gin
+index public.name_trgm_idx_obj depends on operator class public.gin_trgm_ops for access method gin
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+Command was: DROP EXTENSION IF EXISTS pg_trgm;
+
